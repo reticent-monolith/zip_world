@@ -1,0 +1,53 @@
+services:
+  backend:
+    build: "./backend"
+    networks:
+      - backend
+    stdin_open: true
+    tty: true
+    environment: 
+      - FLASK_ENV=development
+
+  database:
+    image: mongo:latest
+    networks:
+      - backend
+    volumes:
+      - "./volumes/db:/data/db"
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  broker:
+    image: eclipse-mosquitto:latest
+    networks:
+      - frontend
+    volumes:
+      - "./volumes/mosquitto:/mosquitto/config"
+
+  auth:
+    image: fusionauth/fusionauth-app
+    networks:
+      - backend
+      - frontend
+
+  proxy:
+    image: caddy:latest
+    volumes:
+      - "./volumes/caddy:/etc/caddy"
+    networks:
+      - frontend
+      - backend
+      - ext
+    ports:
+      - 443:443
+      - 80:80
+
+networks:
+  backend:
+    internal: true
+  frontend:
+    internal: true
+  ext:
+    internal: false
