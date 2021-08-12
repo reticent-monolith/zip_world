@@ -1,5 +1,5 @@
 FROM python:latest
 COPY . /app
 WORKDIR /app
-RUN ["pip3", "install", "-r", "requirements.txt"]
-CMD ["uvicorn", "app:app", "--host", "zip_world_backend_1"]
+RUN ["pip", "install", "-r", "requirements.txt"]
+CMD ["hypercorn", "app:app", "--bind", "zip_world_backend_1"]

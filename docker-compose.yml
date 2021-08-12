@@ -5,19 +5,14 @@ services:
       - backend
     stdin_open: true
     tty: true
-    environment: 
-      - FLASK_ENV=development
 
   database:
-    image: mongo:latest
+    image: mysql/mysql-server
     networks:
       - backend
     volumes:
       - "./volumes/db:/data/db"
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
 
   broker:
     image: eclipse-mosquitto:latest
@@ -41,8 +36,7 @@ services:
       - backend
       - ext
     ports:
-      - 443:443
-      - 80:80
+      - 4443:443
 
 networks:
   backend:

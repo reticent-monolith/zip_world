@@ -1,0 +1,54 @@
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Line {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input {
+    font-size: 4rem;
+    text-align: center;
+    width: 70%;
+    margin: 20px;
+    border: solid black 1px;
+    border-radius: 5px;
+}
+
+.button {
+    margin: 10px
+}
+
+.setup-div {   
+    display: flex;
+    min-height: 160px;
+    max-height: 160px;
+}
+
+.setup-part {
+    min-width: calc(100%/4);
+    max-width: calc(100%/4);
+}
+
+p {
+    text-align: center;
+}
