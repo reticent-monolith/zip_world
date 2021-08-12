@@ -1,4 +1,9 @@
 volumes/db/
+
 backend/__pycache__/
+
 bigbase/node_modules/
+bigbase/build/
+
 bigtop/node_modules/
+bigtop/build/

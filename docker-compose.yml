@@ -10,8 +10,6 @@ services:
     image: mysql/mysql-server
     networks:
       - backend
-    volumes:
-      - "./volumes/db:/data/db"
     restart: always
 
   broker:
@@ -37,6 +35,8 @@ services:
       - ext
     ports:
       - 4443:443
+      - 8080:80
+      - 9001:9001
 
 networks:
   backend:

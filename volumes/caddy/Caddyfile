@@ -1,6 +1,10 @@
-localhost {
-    reverse_proxy / zip_world_bigbase_1:8000
+http://localhost {
     reverse_proxy /api/* zip_world_backend_1:8000
-    reverse_proxy /wizard/* zip_world_wizard_1:8000
-    reverse_proxy /broker zip_world_broker_1:9001
+
+    @websockets {
+        header Connection *Upgrade*
+        header Upgrade    websocket
+    }
+    reverse_proxy @websockets zip_world_broker_1:9001
 }
+
