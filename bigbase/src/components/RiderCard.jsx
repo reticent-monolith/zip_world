@@ -42,7 +42,7 @@ export default class RiderCard extends React.Component {
     }
 
     render() {
-        if (this.props.rider.weight !== 0) {
+        if (this.props.rider.weight !== null && this.props.rider.weight !== 0) {
             return (
                 <div style={this.styles.card}>
                     <span style={this.styles.text}>{this.props.rider.weight} <span style={this.styles.kg}>kg</span></span>

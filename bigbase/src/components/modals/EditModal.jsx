@@ -166,7 +166,7 @@ export default class EditModal extends React.Component {
                                                     ...this.state.currentlyEditing.riders,
                                                     [l]: {
                                                         ...this.state.currentlyEditing.riders[l],
-                                                        weight: e.target.value
+                                                        weight: e.target.value === '' ? 0 : e.target.value
                                                     }
                                                 }
                                             }
@@ -262,7 +262,7 @@ export default class EditModal extends React.Component {
                                                     ...this.state.currentlyEditing.riders,
                                                     [l]: {
                                                         ...this.state.currentlyEditing.riders[l],
-                                                        addedWeight: e.target.value,
+                                                        addedWeight: e.target.value === '' ? 0 : e.target.value,
                                                         frontSlider: "",
                                                         middleSlider: "",
                                                         rearSlider: ""
@@ -287,7 +287,7 @@ export default class EditModal extends React.Component {
                                                     ...this.state.currentlyEditing.riders,
                                                     [l]: {
                                                         ...this.state.currentlyEditing.riders[l],
-                                                        speed: e.target.value
+                                                        speed: e.target.value === '' ? 0 : e.target.value
                                                     }
                                                 }
                                             }
@@ -308,7 +308,7 @@ export default class EditModal extends React.Component {
                                                     ...this.state.currentlyEditing.riders,
                                                     [l]: {
                                                         ...this.state.currentlyEditing.riders[l],
-                                                        trolley: e.target.value
+                                                        trolley: e.target.value === '' ? 0 : e.target.value
                                                     }
                                                 }
                                             }

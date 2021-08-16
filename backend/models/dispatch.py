@@ -1,4 +1,4 @@
-import pprint, bson
+import pprint
 from models._rider import Rider
 
 class Dispatch:
@@ -44,6 +44,5 @@ class Dispatch:
             comment=d['comment'],
             riders={line: Rider.from_dict(rider)
                     for line, rider in d['riders'].items()},
-            _id=bson.ObjectId(
-                d['_id']) if '_id' in d.keys() else bson.ObjectId()
+            _id=d['_id'] if '_id' in d.keys() else None
         )
