@@ -1,0 +1,34 @@
+services:
+# change root password with:
+# docker exec -it mysql1 mysql -uroot -p
+# ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
+  database:
+    container_name: database
+    image: mysql/mysql-server
+    # networks:
+    #   - backend
+    ports:
+      - 3306:3306
+    restart: on-failure
+    volumes:
+      - ./volumes/mysql/scripts:/docker-entrypoint-initdb.d
+    env_file:
+      - ./volumes/mysql/dev.env
+
+  broker:
+    container_name: broker
+    image: eclipse-mosquitto:latest
+    volumes:
+      - "./volumes/mosquitto:/mosquitto/config"
+    ports:
+      - 9001:9001
+
+  auth:
+    container_name: auth
+    image: fusionauth/fusionauth-app
+
+networks:
+  backend:
+    internal: true
+  ext:
+    internal: false

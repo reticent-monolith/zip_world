@@ -1,5 +1,10 @@
-#!/bin/bash
+#!/usr/bin/python
 
-sudo docker-compose down
-sudo docker-compose build
-sudo docker-compose up
+import os, sys
+try:
+    file = sys.argv[1]
+except:
+    file = "docker-compose.yml"
+os.system(f"sudo docker-compose -f {file} down")
+os.system(f"sudo docker-compose -f {file} build")
+os.system(f"sudo docker-compose -f {file} up")

@@ -1,47 +1,31 @@
 services:
   backend:
+    container_name: backend
     build: "./backend"
     networks:
       - backend
-    stdin_open: true
-    tty: true
-
-  database:
-    image: mysql/mysql-server
-    networks:
-      - backend
-    restart: always
-
-  broker:
-    image: eclipse-mosquitto:latest
-    networks:
-      - frontend
-    volumes:
-      - "./volumes/mosquitto:/mosquitto/config"
-
-  auth:
-    image: fusionauth/fusionauth-app
-    networks:
-      - backend
-      - frontend
-
-  proxy:
-    image: caddy:latest
-    volumes:
-      - "./volumes/caddy:/etc/caddy"
-    networks:
-      - frontend
-      - backend
       - ext
     ports:
-      - 4443:443
-      - 8080:80
-      - 9001:9001
+      - 8000:8000
+
+  bigbase:
+    container_name: bigbase
+    build: 
+      context: ./bigbase
+      dockerfile: Dockerfile
+    ports:
+      - 8001:80
+    
+  bigtop:
+    container_name: bigtop
+    build: 
+      context: ./bigtop
+      dockerfile: Dockerfile
+    ports:
+      - 8002:80
 
 networks:
   backend:
-    internal: true
-  frontend:
     internal: true
   ext:
     internal: false

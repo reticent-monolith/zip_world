@@ -1,0 +1,14 @@
+http://localhost:80 {
+    reverse_proxy /api/* localhost:8000
+
+    @websockets {
+        header Connection *Upgrade*
+        header Upgrade    websocket
+    }
+    reverse_proxy @websockets broker:9001
+
+    reverse_proxy /bigbase http://localhost:8001
+
+    reverse_proxy /bigtop http://localhost:8002
+
+}
