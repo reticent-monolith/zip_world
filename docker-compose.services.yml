@@ -1,19 +1,35 @@
 services:
-# change root password with:
-# docker exec -it mysql1 mysql -uroot -p
-# ALTER USER 'root'@'localhost' IDENTIFIED BY 'password';
-  database:
-    container_name: database
-    image: mysql/mysql-server
-    # networks:
-    #   - backend
+  winds_database:
+    container_name: winds_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: winds
+    networks:
+      - db
+      - ext
     ports:
-      - 3306:3306
+      - 5432:5432
     restart: on-failure
     volumes:
-      - ./volumes/mysql/scripts:/docker-entrypoint-initdb.d
-    env_file:
-      - ./volumes/mysql/dev.env
+      - ./volumes/postgres/scripts/winds:/docker-entrypoint-initdb.d
+
+  fusionauth_database:
+    container_name: fusionauth_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fusionauth
+    networks:
+      - db
+      - ext
+    ports:
+      - 5433:5432
+    restart: on-failure
+    volumes:
+      - ./volumes/postgres/scripts/fusionauth:/docker-entrypoint-initdb.d
 
   broker:
     container_name: broker
@@ -23,12 +39,28 @@ services:
     ports:
       - 9001:9001
 
-  auth:
-    container_name: auth
-    image: fusionauth/fusionauth-app
+  fusionauth:
+    image: fusionauth/fusionauth-app:latest
+    container_name: fusionauth
+    depends_on:
+      - fusionauth_database
+    environment:
+      DATABASE_URL: jdbc:postgresql://fusionauth_database:5432/fusionauth
+      DATABASE_ROOT_USERNAME: dbadmin
+      DATABASE_ROOT_PASSWORD: password
+      DATABASE_USERNAME: fusionauth
+      DATABASE_PASSWORD: fusionpass
+    restart: unless-stopped
+    ports:
+      - 9011:9011
+    networks:
+      - db
+      - ext
+    # volumes:
+    #   - ./volumes/fusionauth/config:/usr/local/fusionauth/config
 
 networks:
-  backend:
+  db:
     internal: true
   ext:
     internal: false

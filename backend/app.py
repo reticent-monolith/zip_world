@@ -1,14 +1,14 @@
 from models.user import User
 from quart import Quart, request, jsonify, make_response
 from quart_cors import cors
-from repos.mysql import MySQLDispatchRepo, MySQLUserRepo
+from repos.pgsql import PgSQLDispatchRepo, PgSQLUserRepo
 from models.dispatch import Dispatch
 from pprint import pprint
 
 app = Quart(__name__)
 app = cors(app, allow_origin="*", allow_headers="content-type")
-dispatch_repo = MySQLDispatchRepo()
-user_repo = MySQLUserRepo()
+dispatch_repo = PgSQLDispatchRepo()
+# user_repo = PgSQLUserRepo()
 
 # DISPATCH ROUTES
 @app.route('/bydate/<date>')
@@ -17,6 +17,7 @@ async def by_date(date):
     Return all dispatches from given date.
     """
     dispatches = [dispatch.as_dict() for dispatch in dispatch_repo.by_date(date)]
+    print(dispatches[0])
     response = make_response(jsonify(dispatches), 200,)
     return await response
 
@@ -27,11 +28,13 @@ async def add():
     """
     if request.method == 'POST':
         body = await request.json
+        print(body)
         dispatch = Dispatch.from_dict(body)
         try:
             dispatch_repo.add(dispatch)
         except Exception as e:
-            return make_response(f"{e} when adding {dispatch} to the database", 501)
+            print(e)
+            return await make_response(f"{e} when adding {dispatch} to the database", 501)
         response = make_response("", 200)
         return await response
     elif request.method == 'OPTIONS':
@@ -45,7 +48,6 @@ async def delete():
     """
     if request.method == 'POST':
         id = await request.get_data()
-        print(id)
         try:
             dispatch_repo.delete(id)
         except Exception as e:

@@ -1,10 +1,25 @@
 export default class Dispatch {
     constructor(dispatchState) {
-        this.date = dispatchState.date || new Date().toLocaleDateString()
-        this.time = dispatchState.time || new Date().toLocaleTimeString()
+        let date = new Date().toLocaleDateString().split("/").map(x => {
+            let n = x.toString();
+            n = n.length < 2 ? `0${n}` : n;
+            return n
+        })
+        date = [date[2], date[0], date[1]].join('-')
+        console.log(date)
+        let time = new Date().toLocaleTimeString().split(" ")[0].split(":").map(x => {
+            let n = x.toString();
+            n = n.length < 2 ? `0${n}` : n;
+            return n
+        })
+        time = [time[0], time[1], time[2]].join(":")
+        console.log(time)
+
+        this.date = dispatchState.date || date
+        this.time = dispatchState.time || time
         this.riders = dispatchState.riders
-        this.windSpeed = dispatchState.windSpeed
-        this.windDegrees = dispatchState.windDegrees
+        this.windSpeed = dispatchState.windSpeed === '' ? 0.0 : dispatchState.windSpeed
+        this.windDegrees = dispatchState.windDegrees === '' ? 0 : dispatchState.windDegrees
         this.windsInstructor = dispatchState.windsInstructor
         this.btRadio = dispatchState.btRadio
         this.comment = dispatchState.comment

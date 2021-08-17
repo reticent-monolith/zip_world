@@ -58,8 +58,8 @@ export default class Controls extends React.Component {
                         speed: 0
                     }
                 },
-                windSpeed: "",
-                windDegrees: "",
+                windSpeed: 0,
+                windDegrees: 0,
                 windsInstructor: "",
                 btRadio: "",
                 comment: ""
