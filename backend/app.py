@@ -11,24 +11,22 @@ dispatch_repo = PgSQLDispatchRepo()
 # user_repo = PgSQLUserRepo()
 
 # DISPATCH ROUTES
-@app.route('/bydate/<date>')
+@app.route('/api/bydate/<date>')
 async def by_date(date):
     """
     Return all dispatches from given date.
     """
     dispatches = [dispatch.as_dict() for dispatch in dispatch_repo.by_date(date)]
-    print(dispatches[0])
     response = make_response(jsonify(dispatches), 200,)
     return await response
 
-@app.route('/add', methods=['POST', 'OPTIONS'])
+@app.route('/api/add', methods=['POST', 'OPTIONS'])
 async def add():
     """
     Add a dispatch to the database.
     """
     if request.method == 'POST':
         body = await request.json
-        print(body)
         dispatch = Dispatch.from_dict(body)
         try:
             dispatch_repo.add(dispatch)
@@ -41,7 +39,7 @@ async def add():
         response = make_response("", 200)
         return await response
 
-@app.route('/delete', methods=['POST', 'OPTIONS'])
+@app.route('/api/delete', methods=['POST', 'OPTIONS'])
 async def delete():
     """
     Delete a dispatch from the database.
@@ -59,7 +57,7 @@ async def delete():
         response = make_response("", 200)
         return await response
 
-@app.route('/update', methods=['POST', 'OPTIONS'])
+@app.route('/api/update', methods=['POST', 'OPTIONS'])
 async def update():
     """
     Update a dispatch in the database.

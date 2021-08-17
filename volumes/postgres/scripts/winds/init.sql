@@ -44,7 +44,7 @@ GRANT USAGE ON ALL SEQUENCES IN SCHEMA PUBLIC TO zw_admin;
 
 INSERT INTO data VALUES (
 	DEFAULT,
-	'2021-08-16 13:56:09',
+	'2021-08-17 13:56:09',
 	78, null, 'OLD_RED', null, 0, 34, 187,
 	112, 'NEW_RED', null, 'YELLOW', 0, 37, 238,
 	null, null, null, null, null, null, null,
@@ -56,7 +56,7 @@ INSERT INTO data VALUES (
 
 INSERT INTO data VALUES (
 	DEFAULT,
-	'2021-08-16 13:59:13',
+	'2021-08-17 13:59:13',
 	73, null, 'OLD_RED', null, 0, 34, 127,
 	34, null, null, null, 40, 31, 148,
 	null, null, null, null, null, null, null,

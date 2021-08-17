@@ -11,7 +11,7 @@ import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Set where the application is communicating with
-const RETMON = "http://localhost:5000/"
+const RETMON = "http://192.168.1.133:5000/api/"
 const SITE = "https://backend.reticent-monolith.com/"
 let URL
 if (process.env.NODE_ENV === "development") {
@@ -19,16 +19,13 @@ if (process.env.NODE_ENV === "development") {
 } else {
     URL = SITE
 }
-// TODO python expects 2021-08-05, while this sends 05-08-2021 FIX IT
 // Today's date for initial getDispatches call
 const timestamp = new Date().toLocaleDateString().split("/").map(x => {
     let n = x.toString();
     n = n.length < 2 ? `0${n}` : n;
     return n
 })
-const TODAY = [timestamp[2], timestamp[0], timestamp[1]].join('-')
-
-console.log(TODAY)
+const TODAY = [timestamp[2], timestamp[1], timestamp[0]].join('-')
 
 // Stop the normal right click behaviour so ContextMenu can happen
 document.addEventListener("contextmenu", e => {

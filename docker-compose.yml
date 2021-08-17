@@ -2,8 +2,12 @@ services:
   backend:
     container_name: backend
     build: "./backend"
+    depends_on:
+      - winds_database
+      - fusionauth_database
+      - fusionauth
     networks:
-      - backend
+      - db
       - ext
     ports:
       - 8000:8000
@@ -13,6 +17,8 @@ services:
     build: 
       context: ./bigbase
       dockerfile: Dockerfile
+    depends_on:
+      - backend
     ports:
       - 8001:80
     
@@ -21,6 +27,72 @@ services:
     build: 
       context: ./bigtop
       dockerfile: Dockerfile
+    depends_on:
+      - backend
     ports:
       - 8002:80
+  winds_database:
+    container_name: winds_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: winds
+    networks:
+      - db
+      - ext
+    ports:
+      - 5432:5432
+    restart: on-failure
+    volumes:
+      - ./volumes/postgres/scripts/winds:/docker-entrypoint-initdb.d
 
+  fusionauth_database:
+    container_name: fusionauth_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: dbadmin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: fusionauth
+    networks:
+      - db
+      - ext
+    ports:
+      - 5433:5432
+    restart: on-failure
+    volumes:
+      - ./volumes/postgres/scripts/fusionauth:/docker-entrypoint-initdb.d
+
+  broker:
+    container_name: broker
+    image: eclipse-mosquitto:latest
+    volumes:
+      - "./volumes/mosquitto:/mosquitto/config"
+    ports:
+      - 9001:9001
+
+  fusionauth:
+    image: fusionauth/fusionauth-app:latest
+    container_name: fusionauth
+    depends_on:
+      - fusionauth_database
+    environment:
+      DATABASE_URL: jdbc:postgresql://fusionauth_database:5432/fusionauth
+      DATABASE_ROOT_USERNAME: dbadmin
+      DATABASE_ROOT_PASSWORD: password
+      DATABASE_USERNAME: fusionauth
+      DATABASE_PASSWORD: fusionpass
+    restart: unless-stopped
+    ports:
+      - 9011:9011
+    networks:
+      - db
+      - ext
+    # volumes:
+    #   - ./volumes/fusionauth/config:/usr/local/fusionauth/config
+
+networks:
+  db:
+    internal: true
+  ext:
+    internal: false
