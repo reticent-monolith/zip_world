@@ -24,8 +24,3 @@ services:
     ports:
       - 8002:80
 
-networks:
-  backend:
-    internal: true
-  ext:
-    internal: false
