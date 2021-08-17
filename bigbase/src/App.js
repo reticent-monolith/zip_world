@@ -11,7 +11,7 @@ import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Set where the application is communicating with
-const RETMON = "http://192.168.1.133:5000/api/"
+const RETMON = "http://localhost:5000/api/"
 const SITE = "https://backend.reticent-monolith.com/"
 let URL
 if (process.env.NODE_ENV === "development") {
@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === "development") {
     URL = SITE
 }
 // Today's date for initial getDispatches call
-const timestamp = new Date().toLocaleDateString().split("/").map(x => {
+const timestamp = new Date().toLocaleDateString('en-GB').split("/").map(x => {
     let n = x.toString();
     n = n.length < 2 ? `0${n}` : n;
     return n

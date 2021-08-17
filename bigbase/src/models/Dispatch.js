@@ -1,20 +1,17 @@
 export default class Dispatch {
     constructor(dispatchState) {
-        let date = new Date().toLocaleDateString().split("/").map(x => {
+        let date = new Date().toLocaleDateString('en-GB').split("/").map(x => {
             let n = x.toString();
             n = n.length < 2 ? `0${n}` : n;
             return n
         })
-        date = [date[2], date[0], date[1]].join('-')
-        console.log(date)
+        date = [date[2], date[1], date[0]].join('-')
         let time = new Date().toLocaleTimeString().split(" ")[0].split(":").map(x => {
             let n = x.toString();
             n = n.length < 2 ? `0${n}` : n;
             return n
         })
         time = [time[0], time[1], time[2]].join(":")
-        console.log(time)
-
         this.date = dispatchState.date || date
         this.time = dispatchState.time || time
         this.riders = dispatchState.riders

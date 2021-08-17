@@ -46,28 +46,33 @@ class PgSQLDispatchRepo:
         self.conn.close()
 
     def get_all(self) -> list:
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM data")
-        results = dispatches_from(cursor)
-        cursor.close()
-        return results
+        with self.conn:
+            with self.conn.cursor() as cursor:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM data")
+                results = dispatches_from(cursor)
+                cursor.close()
+                return results
 
-        
     def by_id(self, _id) -> Dispatch:
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM data WHERE id = %s", (_id,))
-        results = dispatches_from(cursor)
-        cursor.close()
-        return results
+        with self.conn:
+            with self.conn.cursor() as cursor:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM data WHERE id = %s", (_id,))
+                results = dispatches_from(cursor)
+                cursor.close()
+                return results
 
     def by_date(self, date: str) -> Dispatch:
         start = str(datetime.datetime.fromisoformat(f"{date} 00:00:00"))
         end = str(datetime.datetime.fromisoformat(f"{date} 23:59:59"))
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM data WHERE datetime >= %s AND datetime < %s", (start, end))
-        results = dispatches_from(cursor)
-        cursor.close()
-        return results
+        with self.conn:
+            with self.conn.cursor() as cursor:
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT * FROM data WHERE datetime >= %s AND datetime < %s", (start, end))
+                results = dispatches_from(cursor)
+                cursor.close()
+                return results
 
     def delete(self, id) -> None:
         with self.conn:
@@ -163,7 +168,6 @@ class PgSQLDispatchRepo:
                     d.comment
                 ))
             self.conn.commit()
-
 
 
 class PgSQLUserRepo:
