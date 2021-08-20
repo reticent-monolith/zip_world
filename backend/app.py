@@ -1,14 +1,28 @@
 from models.user import User
-from quart import Quart, request, jsonify, make_response
+from quart import Quart, request, jsonify, make_response, session, redirect
 from quart_cors import cors
+from quart_session import Session
 from repos.pgsql import PgSQLDispatchRepo, PgSQLUserRepo
 from models.dispatch import Dispatch
 from pprint import pprint
+import requests
 
 app = Quart(__name__)
-app = cors(app, allow_origin="*", allow_headers="content-type")
+app.secret_key = "aejtXNCRZcfevq6SkqzC7cBtV-fVCDhDFNDHmokoCdc"
+app = cors(app, allow_origin="http://localhost:3000", allow_headers="content-type", allow_credentials=True)
 dispatch_repo = PgSQLDispatchRepo()
-# user_repo = PgSQLUserRepo()
+
+# TODO move these constants elsewhere
+HOST = "localhost"
+CLIENT_ID = "0efb7be0-cf63-4ab4-af11-3e7e32d8d25f"
+CLIENT_SECRET = "aejtXNCRZcfevq6SkqzC7cBtV-fVCDhDFNDHmokoCdc"
+REDIRECT_URI = f"http://{HOST}:5000/api/oauth-redirect"
+APPLICATION_ID = "0efb7be0-cf63-4ab4-af11-3e7e32d8d25f"
+API_KEY = "Bvkdd3asxZuy8dsGbjQIZhOLI95biFHWKbTGXGeILobKdsZauyjxce3I"
+FRONT_PORT = 3000
+SERVER_PORT = 5000
+FUSIONAUTH_PORT = 9011
+
 
 # DISPATCH ROUTES
 @app.route('/api/bydate/<date>')
@@ -77,3 +91,55 @@ async def update():
         response = make_response("", 200)
         return await response
 
+
+# AUTH ROUTES
+@app.route("/api/login")
+async def login():
+    return redirect(f"http://{HOST}:{FUSIONAUTH_PORT}/oauth2/authorize?client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&response_type=code")
+
+@app.route("/api/logout")
+async def logout():
+    session.clear()
+    return redirect(f"http://{HOST}:{FUSIONAUTH_PORT}/oauth2/logout?client_id={CLIENT_ID}")
+
+@app.route("/api/user")
+async def user():
+    if session.get("token"):
+        user_info = requests.post(
+            f"http://{HOST}:{FUSIONAUTH_PORT}/oauth2/introspect",
+            {
+                "client_id": CLIENT_ID,
+                "token": session.get("token")
+            }
+        ).json()
+        if user_info.get("active") == True:
+            body = requests.get(
+                f"http://{HOST}:{FUSIONAUTH_PORT}/api/user/{user_info.get('sub')}/{APPLICATION_ID}",
+                headers={"Authorization": API_KEY}
+            )
+            body = body.json() | {"token": session.get("token")}
+            return await make_response(jsonify(body), 200)
+        else:
+            print("NOT ACTIVE")
+            return await make_response(jsonify({}), 200)
+    else:
+        print("NO TOKEN")
+        return await make_response(jsonify({}), 200)
+
+@app.route("/api/oauth-redirect")
+async def callback():
+    code = (await request.values).get("code")
+    print(f"Code = {code}")
+    token = requests.post(
+        f"http://{HOST}:{FUSIONAUTH_PORT}/oauth2/token",
+        {
+            "client_id": CLIENT_ID,
+            "client_secret": CLIENT_SECRET,
+            "code": code,
+            "grant_type": "authorization_code",
+            "redirect_uri": REDIRECT_URI
+        }
+    ).json().get("access_token")
+    print(f"Token = {token}")
+    session["token"] = token
+    return redirect(f"http://localhost:{FRONT_PORT}")

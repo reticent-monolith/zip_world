@@ -53,7 +53,8 @@ export default class App extends React.Component {
             dispatches: [], // received from server
             id: "",
             editing: null,
-            editModalIsOpen: false
+            editModalIsOpen: false,
+            user: {}
         }
 
         this.styles = {
@@ -102,59 +103,79 @@ export default class App extends React.Component {
 
     // Get today's dispatches when page is opened
     componentDidMount() {
+        // Get the logged in user's info
+        fetch(`${URL}user`, {credentials: "include"})
+            .then(res => res.json())
+            .then(res => this.setState({
+                ...this.state,
+                user: res
+            }))
+        // Get today's dispatches
         this.getDispatches(TODAY)
     }
     
     render() {
-        const {dispatches, id, editModalIsOpen, editing} = this.state
-        return (
-            <div style={{minWidth: "1080px"}}>
-                <ContextMenu 
-                    id={id} 
-                    delete={this.deleteDispatch}
-                    dispatches={dispatches}
-                    get={this.getDispatchById}
-                    openEditModal={this.openEditModal}
-                />
+        const {dispatches, id, editModalIsOpen, editing, user} = this.state
+        console.log(this.state)
+        if (user.user) {
+            return (
+                <div style={{minWidth: "1080px"}}>
+                    <ContextMenu 
+                        id={id} 
+                        delete={this.deleteDispatch}
+                        dispatches={dispatches}
+                        get={this.getDispatchById}
+                        openEditModal={this.openEditModal}
+                    />
 
-                <EditModal 
-                    isOpen={editModalIsOpen}
-                    update={this.updateDispatch}
-                    close={this.closeEditModal}
-                    editing={editing}
-                />
+                    <EditModal 
+                        isOpen={editModalIsOpen}
+                        update={this.updateDispatch}
+                        close={this.closeEditModal}
+                        editing={editing}
+                    />
 
-                <Controls 
-                    createDispatch={this.createDispatch}
-                    purge={this.purgeDatabase}
-                    getByRange={this.getDispatchesByRange}
-                />
+                    <Controls 
+                        createDispatch={this.createDispatch}
+                        purge={this.purgeDatabase}
+                        getByRange={this.getDispatchesByRange}
+                    />
 
-                {/* The dispatches from today as cards */}
-                <div style={{
-                    position: "fixed",
-                    top: "200px",
-                    width: "100%",
-                    maxHeight: "80vh",
-                    overflowY: "scroll"
-                }}>
-                    <div>
-                        {dispatches.map(d => {
-                            const dispatch = new Dispatch(d)
-                            return (
-                                <DispatchCard 
-                                    key={dispatch._id}
-                                    data={dispatch}
-                                    mouseEnter={this.handleMouseEnter}
-                                    mouseLeave={this.handleMouseLeave}
-                                />
-                            )
-                        })}
+                    {/* The dispatches from today as cards */}
+                    <div style={{
+                        position: "fixed",
+                        top: "200px",
+                        width: "100%",
+                        maxHeight: "80vh",
+                        overflowY: "scroll"
+                    }}>
+                        <div>
+                            {/* TODO remove this */}
+                            <p>Logged in as {user.user.email}</p>
+                            <a href={`${URL}logout`}>Logout</a>
+                            {dispatches.map(d => {
+                                const dispatch = new Dispatch(d)
+                                return (
+                                    <DispatchCard 
+                                        key={dispatch._id}
+                                        data={dispatch}
+                                        mouseEnter={this.handleMouseEnter}
+                                        mouseLeave={this.handleMouseLeave}
+                                    />
+                                )
+                            })}
+                        </div>
                     </div>
                 </div>
-
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div>
+                    <a href={`${URL}login`}>Log in here</a>
+                </div>
+            )
+        }
+        
     }
 
     //   +-----------------+

@@ -14,6 +14,8 @@ services:
     restart: on-failure
     volumes:
       - ./volumes/postgres/scripts/winds:/docker-entrypoint-initdb.d
+      - winds_data/:/var/lib/postgresql/data
+
 
   fusionauth_database:
     container_name: fusionauth_database
@@ -30,6 +32,8 @@ services:
     restart: on-failure
     volumes:
       - ./volumes/postgres/scripts/fusionauth:/docker-entrypoint-initdb.d
+      - fa_data:/var/lib/postgresql/data
+
 
   broker:
     container_name: broker
@@ -56,11 +60,16 @@ services:
     networks:
       - db
       - ext
-    # volumes:
-    #   - ./volumes/fusionauth/config:/usr/local/fusionauth/config
+    volumes:
+      - fa_config:/usr/local/fusionauth/config
 
 networks:
   db:
     internal: true
   ext:
     internal: false
+
+volumes:
+  fa_data:
+  fa_config:
+  winds_data:

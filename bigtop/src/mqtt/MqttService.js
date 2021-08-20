@@ -5,7 +5,7 @@ export default class MqttService {
     constructor(websocketUrl, messageHandler) {
         Log.debug(`MQTT Client connecting to ${websocketUrl}`)
         try {     
-            this.client = mqtt.connect(websocketUrl)
+            this.client = mqtt.connect(websocketUrl, {clientId: "bigtop"})
         } catch (err) {
             Log.error(err.stack)
             process.exit()
