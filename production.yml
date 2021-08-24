@@ -8,7 +8,7 @@
 services:
   backend:
     container_name: backend
-    build: "./backend"
+    image: reticientmonolith/winds-backend:latest
     depends_on:
       - winds_database
       - fusionauth_database
@@ -21,9 +21,7 @@ services:
 
   bigbase:
     container_name: bigbase
-    build: 
-      context: ./bigbase
-      dockerfile: Dockerfile
+    image: reticientmonolith/winds-bigbase:latest
     depends_on:
       - backend
     ports:
@@ -31,9 +29,7 @@ services:
     
   bigtop:
     container_name: bigtop
-    build: 
-      context: ./bigtop
-      dockerfile: Dockerfile
+    image: reticientmonolith/winds-bigtop:latest
     depends_on:
       - backend
     ports:

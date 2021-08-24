@@ -1,7 +1,5 @@
-from models.user import User
 from quart import Quart, request, jsonify, make_response, session, redirect
 from quart_cors import cors
-from quart_session import Session
 from repos.pgsql import PgSQLDispatchRepo, PgSQLUserRepo
 from models.dispatch import Dispatch
 from pprint import pprint

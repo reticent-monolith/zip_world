@@ -1,4 +1,4 @@
-volumes/db/
+volumes/postgres/
 
 __pycache__/
 backend/models/__pycache__/

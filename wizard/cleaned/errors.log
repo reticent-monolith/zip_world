@@ -1,0 +1,616 @@
+invalid literal for int() with base 10: '' || 56 X  285 1.2
+'S2X2 S3' is not in list || 114 S2X2 S3 41 164 7.6
+invalid literal for int() with base 10: '' || 65 SO2  174 14.4
+could not convert string to float: '?' || 80 SN2 36 156 ?
+could not convert string to float: '?' || 75 SO2 36 156 ?
+could not convert string to float: '?' || 86 SN2 41 156 ?
+invalid literal for int() with base 10: '' || 64 SN2 35  
+invalid literal for int() with base 10: '' || 70 S3 32  
+invalid literal for int() with base 10: '' || 51 SO2 32  
+Added weight invalid: 69 45
+'45' is not in list || 69 45 46  
+invalid literal for int() with base 10: '' || 77 SO2 S3 45  
+Added weight invalid: 78 35
+'35' is not in list || 78 35 33 274 3.6
+'S1\x10' is not in list || 100 S1 36 322 9
+'S1\x10' is not in list || 88 S1 34 27 3.4
+'S1\x10' is not in list || 86 S1 31 349 3.7
+Added weight invalid: 68 35
+invalid literal for int() with base 10: '' || 68 35  311 3.3
+Added weight invalid: 44 95
+'95' is not in list || 44 95 38 342 8.4
+Added weight invalid: 66 83
+'83' is not in list || 66 83 30 309 11.5
+invalid literal for int() with base 10: '?' || ? ? 43 327 11.8
+Added weight invalid: 61 30
+'30' is not in list || 61 30 30 125 7.3
+invalid literal for int() with base 10: 'ESE' || 83 SO2 33 ESE 12.9
+invalid literal for int() with base 10: 'ESE' || 71 S1 37 ESE 12.9
+invalid literal for int() with base 10: 'ESE' || 87 SO2 33 ESE 12.9
+invalid literal for int() with base 10: 'ESE' || 93 SO2 31 ESE 12.9
+invalid literal for int() with base 10: 'SE' || 66 S1 33 SE 12.2
+invalid literal for int() with base 10: 'SE' || 65 S1 30 SE 12.2
+invalid literal for int() with base 10: 'SE' || 72 S1 38 SE 12.2
+'' is not in list || 67  37 139 26.1
+invalid literal for int() with base 10: '' || 71 S1   
+invalid literal for int() with base 10: '' || 72 S1   
+invalid literal for int() with base 10: '' || 114 SO2 SN2 S3   
+invalid literal for int() with base 10: '' || 84 SO2   
+invalid literal for int() with base 10: '' || 81 SN2 35  
+invalid literal for int() with base 10: '' || 49 X 40  
+invalid literal for int() with base 10: '' || 104 SN2 S3 38  
+invalid literal for int() with base 10: '' || 78 SO2 35  
+invalid literal for int() with base 10: '' || 88 SN2 40  
+invalid literal for int() with base 10: '' || 66 SO2 41  
+invalid literal for int() with base 10: '' || 40 X 38  
+invalid literal for int() with base 10: '' || 88 SN2 39  
+invalid literal for int() with base 10: '' || 106 SO2  320 4.9
+Added weight invalid: 79 35
+invalid literal for int() with base 10: '' || 79 35  211 12.8
+invalid literal for int() with base 10: '' || 85 SO2  203 10.4
+invalid literal for int() with base 10: '' || 64 X  203 10.4
+invalid literal for int() with base 10: '' || 61 X  203 10.4
+Added weight invalid: 30 61
+'61' is not in list || 30 61 28 138 12.3
+invalid literal for int() with base 10: '' || 71 SO2  139 14.4
+invalid literal for int() with base 10: 'S1' || 73 S1 S1 64 4.6
+'SO2S3' is not in list || 123 SO2S3 51 212 14.3
+invalid literal for int() with base 10: 'DNA' || 101 S1S3 DNA 233 19.2
+invalid literal for int() with base 10: '' || 73 S1  233 19.2
+invalid literal for int() with base 10: '' || 77 SO2  233 19.2
+invalid literal for int() with base 10: '' || 127 S1SN2S3  233 19.2
+'SO2S3' is not in list || 105 SO2S3 36 160 15.5
+'SO2S3' is not in list || 108 SO2S3 40 160 15.5
+invalid literal for int() with base 10: '' || 56 S1  236 19.1
+could not convert string to float: '14,9' || 129 SN2X2 S3 44 217 14,9
+could not convert string to float: '14,9' || 85 SO2 40 217 14,9
+could not convert string to float: '14,9' || 83 SO2 40 217 14,9
+invalid literal for int() with base 10: '' || 58 S1 32  10.1
+invalid literal for int() with base 10: '' || 53 S1 33  10.1
+invalid literal for int() with base 10: '' || 76 SO2 32  10.1
+invalid literal for int() with base 10: '' || 101 SO2 S3 33  10.1
+invalid literal for int() with base 10: '' || 90 SN2 39  9
+invalid literal for int() with base 10: '' || 50 S1 28  9
+invalid literal for int() with base 10: '' || 75 SO2 35  9
+invalid literal for int() with base 10: '' || 54 S1 32  9
+invalid literal for int() with base 10: '' || 99 S3 39  11.9
+invalid literal for int() with base 10: '' || 34 44 32  11.9
+invalid literal for int() with base 10: '' || 58 S1 38  11.9
+invalid literal for int() with base 10: '' || 68 SO2 32  11.9
+invalid literal for int() with base 10: '' || 82 SN2 39  9.8
+invalid literal for int() with base 10: '' || 67 SO2 30  9.8
+invalid literal for int() with base 10: '' || 42 X 30  9.8
+invalid literal for int() with base 10: '' || 90 SN2 35  9.8
+invalid literal for int() with base 10: '' || 75 SO2 36  9.6
+invalid literal for int() with base 10: '' || 70 SO2 36  9.6
+invalid literal for int() with base 10: '' || 56 S1 20  9.6
+invalid literal for int() with base 10: '' || 40 X 21  9.6
+invalid literal for int() with base 10: '' || 86 SN2 35  8.4
+invalid literal for int() with base 10: '' || 50 S1 25  8.4
+invalid literal for int() with base 10: '' || 46 X 32  8.4
+invalid literal for int() with base 10: '' || 70 SO2 40  8.4
+invalid literal for int() with base 10: '' || 45 X 38  9.8
+invalid literal for int() with base 10: '' || 51 S1 32  9.8
+invalid literal for int() with base 10: '' || 84 SN2 38  9.8
+invalid literal for int() with base 10: '' || 62 S1 38  9.8
+invalid literal for int() with base 10: '' || 60 S1 34  11.4
+invalid literal for int() with base 10: '' || 59 S1 36  11.4
+invalid literal for int() with base 10: '' || 77 SO2 36  11.4
+invalid literal for int() with base 10: '' || 91 SN2 32  11.4
+invalid literal for int() with base 10: '' || 87 SN2 40  13
+invalid literal for int() with base 10: '' || 70 SO2 40  13
+invalid literal for int() with base 10: '' || 67 SO2 35  13
+invalid literal for int() with base 10: '' || 89 SN2 42  13
+invalid literal for int() with base 10: '' || 94 S3 39  11.8
+invalid literal for int() with base 10: '' || 57 S1 30  11.8
+invalid literal for int() with base 10: '' || 45 X 30  11.8
+invalid literal for int() with base 10: '' || 87 SN2 30  11.8
+invalid literal for int() with base 10: '' || 56 S1 38  9.8
+invalid literal for int() with base 10: '' || 85 SN2 34  9.8
+invalid literal for int() with base 10: '' || 75 SO2 38  9.8
+invalid literal for int() with base 10: '' || 88 SN2 38  9.8
+invalid literal for int() with base 10: '' || 75 SO2 35  10.4
+invalid literal for int() with base 10: '' || 83 SN2 27  10.4
+invalid literal for int() with base 10: '' || 94 S3 34  10.4
+invalid literal for int() with base 10: '' || 66 SO2 26  10.4
+invalid literal for int() with base 10: '' || 36 46 36  7.4
+invalid literal for int() with base 10: '' || 83 SN2 32  7.4
+invalid literal for int() with base 10: '' || 71 SO2 39  7.4
+invalid literal for int() with base 10: '' || 39 49 40  7.4
+invalid literal for int() with base 10: '' || 74 SO2 30  10.4
+invalid literal for int() with base 10: '' || 90 S3 33  10.4
+invalid literal for int() with base 10: '' || 62 S1 32  10.4
+invalid literal for int() with base 10: '' || 87 SN2 30  10.4
+invalid literal for int() with base 10: '' || 101 S1 S3 37  10.4
+invalid literal for int() with base 10: '' || 81 SN2 30  10.4
+invalid literal for int() with base 10: '' || 59 S1 37  10.4
+invalid literal for int() with base 10: '' || 95 S1 S3 30  10.4
+invalid literal for int() with base 10: '' || 78 SO2 32  8.3
+invalid literal for int() with base 10: '' || 80 SN2 30  8.3
+invalid literal for int() with base 10: '' || 97 S1 S3 39  8.3
+invalid literal for int() with base 10: '' || 94 S3 30  8.3
+invalid literal for int() with base 10: '' || 102 S1 S3 41  10.4
+invalid literal for int() with base 10: '' || 42 X 34  10.4
+invalid literal for int() with base 10: '' || 58 S1 34  10.4
+invalid literal for int() with base 10: '' || 38 48 34  10.4
+invalid literal for int() with base 10: '' || 72 SO2 27  7.9
+invalid literal for int() with base 10: '' || 78 SO2 30  7.9
+'S1 SO2 S3' is not in list || 112 S1 SO2 S3 33  9.8
+invalid literal for int() with base 10: '' || 43 X 25  9.8
+invalid literal for int() with base 10: '' || 66 S1 24  9.8
+invalid literal for int() with base 10: '' || 63 S1 36  9.8
+invalid literal for int() with base 10: '' || 57 S1 36  8.4
+invalid literal for int() with base 10: '' || 59 S1 37  8.4
+invalid literal for int() with base 10: '' || 46 X 36  8.4
+invalid literal for int() with base 10: '' || 80 SN2 20  8.4
+invalid literal for int() with base 10: '' || 62 S1 40  11.1
+invalid literal for int() with base 10: '' || 57 S1 35  11.1
+invalid literal for int() with base 10: '' || 94 S3 40  11.1
+invalid literal for int() with base 10: '' || 101 S1 S3 34  10.8
+invalid literal for int() with base 10: '' || 54 S1 38  10.8
+invalid literal for int() with base 10: '' || 70 SO2 34  10.8
+invalid literal for int() with base 10: '' || 102 S1 S3 36  10.8
+invalid literal for int() with base 10: '' || 83 SN2 27  6.4
+invalid literal for int() with base 10: '' || 101 S1 S3 37  6.4
+invalid literal for int() with base 10: '' || 69 SO2 32  6.4
+invalid literal for int() with base 10: '' || 77 SO2 37  5.4
+invalid literal for int() with base 10: '' || 75 SO2 40  5.4
+invalid literal for int() with base 10: '' || 88 SN2 42  5.4
+invalid literal for int() with base 10: '' || 67 SO2 30  8.3
+invalid literal for int() with base 10: '' || 80 SN2 32  8.3
+invalid literal for int() with base 10: '' || 79 SN2 28  8.3
+invalid literal for int() with base 10: '' || 78 SN2 27  8.3
+invalid literal for int() with base 10: '' || 62 S1 18  6.7
+invalid literal for int() with base 10: '' || 42 X 21  6.7
+invalid literal for int() with base 10: '' || 43 X 15  6.7
+invalid literal for int() with base 10: '' || 71 SO2 18  6.7
+invalid literal for int() with base 10: '' || 52 S1 20  8.9
+invalid literal for int() with base 10: '' || 62 S1 27  8.9
+invalid literal for int() with base 10: '' || 71 SO2 28  8.9
+invalid literal for int() with base 10: '' || 103 S1 S3 32  8.9
+invalid literal for int() with base 10: '' || 79 SO2 25  10.3
+invalid literal for int() with base 10: '' || 62 S1 26  10.3
+invalid literal for int() with base 10: '' || 69 S1 40  10.3
+invalid literal for int() with base 10: '' || 61 S1 40  10.3
+invalid literal for int() with base 10: '' || 74 S1 40  10
+invalid literal for int() with base 10: '' || 68 S1 40  10
+invalid literal for int() with base 10: '' || 71 S1 41  10
+invalid literal for int() with base 10: '' || 72 S1 41  10
+invalid literal for int() with base 10: '' || 89 SN2 27  10.2
+invalid literal for int() with base 10: '' || 70 S1 39  10.2
+invalid literal for int() with base 10: '' || 58 S1 33  10.2
+invalid literal for int() with base 10: '' || 57 S1 30  10.2
+invalid literal for int() with base 10: '' || 58 S1 20  8.4
+invalid literal for int() with base 10: '' || 94 SN2 40  8.4
+invalid literal for int() with base 10: '' || 31 41 20  8.4
+invalid literal for int() with base 10: '' || 73 S1 44  8.4
+invalid literal for int() with base 10: '' || 34 44 23  8.3
+invalid literal for int() with base 10: '' || 80 SO2 38  8.3
+invalid literal for int() with base 10: '' || 53 S1 26  8.3
+invalid literal for int() with base 10: '' || 78 SO2 35  11.8
+invalid literal for int() with base 10: '' || 77 SO2 32  11.8
+invalid literal for int() with base 10: '' || 96 S3 30  11.8
+invalid literal for int() with base 10: '' || 71 S1 32  11.8
+invalid literal for int() with base 10: '' || 72 S1 36  9.2
+invalid literal for int() with base 10: '' || 53 X 30  9.2
+invalid literal for int() with base 10: '' || 90 SN2 29  9.2
+invalid literal for int() with base 10: '' || 62 S1 28  9.2
+invalid literal for int() with base 10: '' || 80 SO2 31  10.1
+invalid literal for int() with base 10: '' || 78 SO2 33  10.1
+invalid literal for int() with base 10: '' || 62 S1 32  10.1
+'SN2SN2S3' is not in list || 117 SN2SN2S3 36 208 10.6
+invalid literal for int() with base 10: '' || 86 SO2 34  10.9
+invalid literal for int() with base 10: '' || 75 S1 33  10.9
+invalid literal for int() with base 10: '' || 67 S1 37  10.9
+invalid literal for int() with base 10: '' || 96 SN2 24  10.9
+invalid literal for int() with base 10: '' || 97 S3 24  5.4
+invalid literal for int() with base 10: '' || 79 S1 27  5.4
+invalid literal for int() with base 10: '' || 93 SN2 30  5.4
+invalid literal for int() with base 10: '' || 87 SO2 32  5.4
+invalid literal for int() with base 10: '' || 93 SN2 17  9.1
+invalid literal for int() with base 10: '' || 42 52 18  9.1
+invalid literal for int() with base 10: '' || 39 49 15  9.1
+invalid literal for int() with base 10: '' || 80 SO2 20  9.1
+invalid literal for int() with base 10: '' || 88 SO2 35  8.7
+invalid literal for int() with base 10: '' || 43 53 26  8.7
+invalid literal for int() with base 10: '' || 68 S1 31  8.7
+invalid literal for int() with base 10: '' || 64 S1 31  8.7
+invalid literal for int() with base 10: '' || 31 51 21  12.5
+invalid literal for int() with base 10: '' || 63 S1 22  12.5
+invalid literal for int() with base 10: '' || 85 SO2 23  12.5
+invalid literal for int() with base 10: '' || 45 55 24  10.6
+'S2S2S3' is not in list || 122 S2S2S3 34  10.6
+invalid literal for int() with base 10: '' || 74 S1 31  10.6
+invalid literal for int() with base 10: '' || 54 X 24  10.6
+invalid literal for int() with base 10: '' || 94 SN2 32  10.8
+invalid literal for int() with base 10: '' || 60 S1 27  10.8
+invalid literal for int() with base 10: '' || 43 53 30  10.8
+invalid literal for int() with base 10: '' || 58 X 23  10.8
+invalid literal for int() with base 10: '' || 48 58 27  10
+invalid literal for int() with base 10: '' || 84 SO2 30  10
+invalid literal for int() with base 10: '' || 74 S1 32  10
+invalid literal for int() with base 10: '' || 80 SO2 27  10
+invalid literal for int() with base 10: '' || 65 S1 25  8.9
+invalid literal for int() with base 10: '' || 81 SO2 28  8.9
+invalid literal for int() with base 10: '' || 88 SO2 28  8.9
+invalid literal for int() with base 10: '' || 67 S1 25  8.9
+invalid literal for int() with base 10: '' || 78 S1 36  10.5
+invalid literal for int() with base 10: '' || 81 SO2 36  10.5
+invalid literal for int() with base 10: '' || 99 SN2 34  10.3
+invalid literal for int() with base 10: '' || 70 S1 37  10.3
+invalid literal for int() with base 10: '' || 91 SN2 36  10.3
+invalid literal for int() with base 10: '' || 77 S1 33  10.3
+invalid literal for int() with base 10: '' || 77 S1 32  12.7
+invalid literal for int() with base 10: '' || 74 S1 33  12.7
+invalid literal for int() with base 10: '' || 69 S1 32  12.7
+invalid literal for int() with base 10: '' || 67 S1 31  12.7
+invalid literal for int() with base 10: '' || 86 SO2 24  10.4
+invalid literal for int() with base 10: '' || 76 S1 32  10.4
+invalid literal for int() with base 10: '' || 86 SO2 30  10.4
+invalid literal for int() with base 10: '' || 61 S1 30  10.4
+invalid literal for int() with base 10: '' || 54 X 25  8.8
+invalid literal for int() with base 10: '' || 52 X 22  8.8
+'SO2S3' is not in list || 110 SO2S3 28  8.8
+invalid literal for int() with base 10: '' || 73 S1 23  8.5
+invalid literal for int() with base 10: '' || 60 S1 24  8.5
+invalid literal for int() with base 10: '' || 53 X 25  8.5
+invalid literal for int() with base 10: '' || 91 SN2 32  8.5
+invalid literal for int() with base 10: '' || 74 S1 48  12
+invalid literal for int() with base 10: '' || 56 X 27  12
+invalid literal for int() with base 10: '' || 82 SO2 26  12
+invalid literal for int() with base 10: '' || 101 S3 22  10.7
+invalid literal for int() with base 10: '' || 75 S1 34  10.7
+invalid literal for int() with base 10: '' || 40 50 20  10.7
+invalid literal for int() with base 10: '' || 87 SN2 20  10.7
+invalid literal for int() with base 10: '' || 90 SN2 28  10.8
+invalid literal for int() with base 10: '' || 100 S3 28  10.8
+invalid literal for int() with base 10: '' || 50 X 28  10.8
+invalid literal for int() with base 10: '' || 81 SO2 28  10.8
+invalid literal for int() with base 10: '' || 66 S1 31  10.8
+invalid literal for int() with base 10: '' || 87 SO2 32  10.8
+invalid literal for int() with base 10: '' || 63 S1 30  10.8
+invalid literal for int() with base 10: '' || 86 SO2 32  10.8
+invalid literal for int() with base 10: '' || 119 SN2S3 31  7.1
+invalid literal for int() with base 10: '' || 61 S1 32  7.1
+invalid literal for int() with base 10: '' || 65 S1 33  7.1
+invalid literal for int() with base 10: '' || 96 SN2 35  7.1
+invalid literal for int() with base 10: '' || 69 S1 33  13.9
+invalid literal for int() with base 10: '' || 33 53 27  13.9
+invalid literal for int() with base 10: '' || 48 X 25  13.9
+invalid literal for int() with base 10: '' || 87 SO2 34  7.5
+invalid literal for int() with base 10: '' || 92 SN2 32  7.5
+invalid literal for int() with base 10: '' || 88 SO2 24  7.5
+invalid literal for int() with base 10: '' || 94 SN2 32  7.5
+invalid literal for int() with base 10: '' || 53 X 30  15.4
+invalid literal for int() with base 10: '' || 62 S1 28  15.4
+invalid literal for int() with base 10: '' || 76 S1   15.4
+invalid literal for int() with base 10: '' || 76 S1 29  7.8
+invalid literal for int() with base 10: '' || 82 SO2 34  7.8
+invalid literal for int() with base 10: '' || 66 S1 30  7.8
+invalid literal for int() with base 10: '' || 106 S1 S3 27  7.8
+invalid literal for int() with base 10: '11-Apr' || 11-Apr S1 S3 11 245 8.8
+invalid literal for int() with base 10: '' || 50 60  247 14.4
+invalid literal for int() with base 10: 'POP' || 59 X POP 268 7.8
+invalid literal for int() with base 10: '' || 68 X  255 7.4
+invalid literal for int() with base 10: '' || 62 X  255 7.4
+invalid literal for int() with base 10: '' || 66 X  255 7.4
+'61`' is not in list || 51 61` 27 297 5.3
+invalid literal for int() with base 10: '?' || 109 SN2 ? 235 16.8
+invalid literal for int() with base 10: '?' || 95 SO2 ? 235 16.8
+invalid literal for int() with base 10: '?' || 100 SN2 ? 235 16.8
+invalid literal for int() with base 10: '?' || 105 SN2 ? 235 16.8
+'S1 S1' is not in list || 95 S1 S1 26 186 6.8
+'SN3 S3' is not in list || 107 SN3 S3 29 187 11.4
+'SN2 XS S3' is not in list || 117 SN2 XS S3 25 205 13.9
+Added weight invalid: 58 76
+'76' is not in list || 58 76 37 24 5.9
+invalid literal for int() with base 10: 'DNM' || 92 S1 DNM 336 8.7
+invalid literal for int() with base 10: '' || 82 SO2 41  8.9
+invalid literal for int() with base 10: '' || 53 X 41  8.9
+'S02S3' is not in list || 113 S02S3 45 209 18
+'S02 S3' is not in list || 109 S02 S3 42 238 15.7
+Added weight invalid: 81 37
+'37' is not in list || 81 37 35 188 14
+'SN2X2 S3A' is not in list || 86 SN2X2 S3A 36 233 22.4
+'SN2X2 S3A' is not in list || 96 SN2X2 S3A 39 189 19.4
+'S1 SN2 S3 A' is not in list || 68 S1 SN2 S3 A 40 162 16.8
+'SN2X2 S3A' is not in list || 110 SN2X2 S3A 39 195 18.4
+'SN2X2 S3A' is not in list || 85 SN2X2 S3A 38 158 15.5
+'SN2X2 S3A' is not in list || 90 SN2X2 S3A 34 174 22.9
+'SN2X2 S3A' is not in list || 102 SN2X2 S3A 46 195 19.1
+'SN2X2 S3A' is not in list || 93 SN2X2 S3A 40 186 26.2
+'S1 SN2 S3 A' is not in list || 72 S1 SN2 S3 A 30 186 17.9
+'SN2X2 S3A' is not in list || 90 SN2X2 S3A 36 186 17.9
+'SN2X2 S3A' is not in list || 97 SN2X2 S3A 38 176 21
+'SN2X2 S3A' is not in list || 110 SN2X2 S3A 43 184 24.2
+'SN2X2 S3A' is not in list || 91 SN2X2 S3A 39 233 25.1
+'SN2X2 S3A' is not in list || 96 SN2X2 S3A 40 195 22
+'SN2X2 S3A' is not in list || 83 SN2X2 S3A 35 148 25.8
+'SN2X2 S3A' is not in list || 103 SN2X2 S3A 40 131 27.4
+'SN2X2 S3A' is not in list || 87 SN2X2 S3A 38 212 22.5
+'SN2X2 S3A' is not in list || 85 SN2X2 S3A 40 161 27.4
+'SN2X2 S3A' is not in list || 96 SN2X2 S3A 29 166 25.2
+'SN2X2 S3A' is not in list || 87 SN2X2 S3A 37 152 26.8
+'SN2X2 S3A' is not in list || 100 SN2X2 S3A 38 169 24
+'SN2X2 S3A' is not in list || 87 SN2X2 S3A 32 195 21.4
+'SN2X2 S3A' is not in list || 90 SN2X2 S3A 33 209 18.9
+'SN2X2 S3A' is not in list || 86 SN2X2 S3A 39 155 23.8
+'SN2X2 S3A' is not in list || 87 SN2X2 S3A 42 225 18.8
+'SN2X2 S3 A' is not in list || 87 SN2X2 S3 A 42 169 19
+'SN2X2 S3 A' is not in list || 88 SN2X2 S3 A 41 169 19
+'SN2X2 S3 A' is not in list || 80 SN2X2 S3 A 31 206 20.6
+'SN2X2 S3 A' is not in list || 99 SN2X2 S3 A 28 161 15.9
+'SN2X3 S3 A' is not in list || 108 SN2X3 S3 A 32 160 21.5
+'SN2X2 S3 A' is not in list || 91 SN2X2 S3 A 38 175 19.5
+'SN2X2 S3 A' is not in list || 102 SN2X2 S3 A 31 154 19.5
+'SN2X2 S3 A' is not in list || 97 SN2X2 S3 A 32 211 20.5
+'SN2X2 S3 A' is not in list || 105 SN2X2 S3 A 62 203 17.1
+'SN2X2 S3A' is not in list || 107 SN2X2 S3A 44 197 19
+'SN2X2 S3 A' is not in list || 98 SN2X2 S3 A 33 154 17.2
+'SN2X2 S3 A' is not in list || 98 SN2X2 S3 A 28 154 17.2
+'SN2X2 S3 A' is not in list || 116 SN2X2 S3 A 42 142 13.1
+'SN2X2 S3 A' is not in list || 103 SN2X2 S3 A 40 176 13.8
+'SN2X2 S3 A' is not in list || 84 SN2X2 S3 A 32 223 18.9
+'SN2X2 S3 A' is not in list || 91 SN2X2 S3 A 37 146 15.9
+'SN2X2 S3 A' is not in list || 88 SN2X2 S3 A 40 181 21.5
+'SN2X2 S3 A' is not in list || 103 SN2X2 S3 A 44 140 21.3
+'SN2X2 S3 A' is not in list || 118 SN2X2 S3 A 48 204 22.7
+'SN2X2 S3 A' is not in list || 84 SN2X2 S3 A 32 179 22
+'SN2X2 S3 A' is not in list || 88 SN2X2 S3 A 39 216 18.3
+'SN2X2 S3 A' is not in list || 81 SN2X2 S3 A 35 141 16.6
+'SO2S3' is not in list || 90 SO2S3 38 231 12.3
+'SN2X2 S3A' is not in list || 115 SN2X2 S3A 42 200 13.8
+'SN2X2 S3A' is not in list || 113 SN2X2 S3A 44 166 18.5
+'SN2X2 S3A' is not in list || 120 SN2X2 S3A 38 148 16.2
+'SN2X2 S3A' is not in list || 112 SN2X2 S3A 38 152 18.7
+'SN2 S 2 S3A' is not in list || 115 SN2 S 2 S3A 42 198 16.7
+'SN2 X2 S3A' is not in list || 117 SN2 X2 S3A 36 174 18.6
+invalid literal for int() with base 10: '' || 105 SN2X2 S3  212 21
+'SO2S3' is not in list || 71 SO2S3 37 162 13.1
+'O2 SN2 S3' is not in list || 85 O2 SN2 S3 30 156 17.6
+'SN3 S3' is not in list || 79 SN3 S3 33 156 17.6
+'SN2X2 S3 A' is not in list || 109 SN2X2 S3 A 35 141 16.3
+'SN2X2 S3 A' is not in list || 111 SN2X2 S3 A 31 143 20.4
+'SN2X32 S3A' is not in list || 115 SN2X32 S3A 34 143 20.4
+'O2 SN2 S3' is not in list || 87 O2 SN2 S3 35 150 14.9
+'SN2X2 S3 A' is not in list || 109 SN2X2 S3 A 36 146 17.7
+'SN2X2 S3 A' is not in list || 105 SN2X2 S3 A 46 207 19.3
+'N2 S3' is not in list || 66 N2 S3 28 142 21
+'SN2X2 S3 A' is not in list || 101 SN2X2 S3 A 40 210 18.5
+'SN2X2 S3 A' is not in list || 112 SN2X2 S3 A 48 210 20.1
+'SN2 SX2 S3 A' is not in list || 106 SN2 SX2 S3 A 40 211 19.6
+'SN2X2 S3 A' is not in list || 117 SN2X2 S3 A 38 150 24.4
+'SN2X2 S3 A' is not in list || 97 SN2X2 S3 A 45 208 25.1
+'SN2X2 S3 A' is not in list || 101 SN2X2 S3 A 47 208 25.1
+'SN2X2 S3 A' is not in list || 110 SN2X2 S3 A 34 158 22.5
+'SN2X2 S3 A' is not in list || 118 SN2X2 S3 A 45 208 19.3
+'SN2X2 S3 A' is not in list || 113 SN2X2 S3 A 49 208 19.3
+'SN2X2 S3 A' is not in list || 104 SN2X2 S3 A 43 208 19.3
+'SN2X2 S3 A' is not in list || 98 SN2X2 S3 A 37 181 23.5
+'O2 SN2 S3' is not in list || 76 O2 SN2 S3 35 181 23.5
+'SN2X2 S3 A' is not in list || 95 SN2X2 S3 A 34 181 23.5
+'SN2X2 S3 A' is not in list || 101 SN2X2 S3 A 36 189 24.6
+'SN2X2 S3 A' is not in list || 94 SN2X2 S3 A 41 214 27.5
+'SN2X2 S3 A' is not in list || 96 SN2X2 S3 A 45 202 20.8
+'SN2X2 S3 A' is not in list || 97 SN2X2 S3 A 41 159 21.8
+'SN2 X 2 S3' is not in list || 83 SN2 X 2 S3 41 165 20.3
+'SN2X2 S3 A' is not in list || 97 SN2X2 S3 A 42 137 29.3
+'SN2X2 S3 A' is not in list || 119 SN2X2 S3 A 38 225 25
+'SN2X2 S3 A' is not in list || 98 SN2X2 S3 A 36 205 22.4
+'SN2X2 S3 A' is not in list || 108 SN2X2 S3 A 43 186 18.1
+'SN2X2 S3 A' is not in list || 114 SN2X2 S3 A 46 160 27.4
+'SN2X2 S3 A' is not in list || 108 SN2X2 S3 A 43 192 25.6
+'SN2X2 S3 A' is not in list || 101 SN2X2 S3 A 42 192 25.6
+invalid literal for int() with base 10: 'SO2' || SO2 X 43 268 6.2
+Added weight invalid: 87 81
+'81' is not in list || 87 81 43 300 6.6
+invalid literal for int() with base 10: '' ||  X 38 259 5.6
+could not convert string to float: '' || 101 S1 35 248 
+could not convert string to float: '' || 65 X 38 248 
+could not convert string to float: '' || 63 73 41 248 
+could not convert string to float: '' || 75 X 40 248 
+Added weight invalid: 91 1
+'1' is not in list || 91 1 44 228 9.4
+could not convert string to float: '15,.9' || 67 S1 37 234 15,.9
+could not convert string to float: '15,.9' || 72 S1 38 234 15,.9
+could not convert string to float: '15,.9' || 97 SN2 37 234 15,.9
+could not convert string to float: '15,.9' || 57 X 41 234 15,.9
+'SM2' is not in list || 104 SM2 38 218 6.5
+Added weight invalid: 61 34
+'34' is not in list || 61 34 34 216 11.7
+'O2 S3' is not in list || 114 O2 S3 34 187 12.7
+'S3 A' is not in list || 110 S3 A 37 223 12
+invalid literal for int() with base 10: 'SO2' || SO2 S1 33 330 2.2
+invalid literal for int() with base 10: 'POP' || 96 S1 POP 321 8.6
+Added weight invalid: 53 25
+'25' is not in list || 53 25 27 31 9.7
+Added weight invalid: 71 82
+'82' is not in list || 71 82 36 321 9.1
+invalid literal for int() with base 10: 'DNA' || 56 96 DNA 355 13
+'SI S3' is not in list || 100 SI S3 37 131 15.1
+Added weight invalid: 43 54
+'54' is not in list || 43 54 38 155 14
+invalid literal for int() with base 10: '' || 90 SN2 20  11
+invalid literal for int() with base 10: '' || 51 X 18  11
+invalid literal for int() with base 10: '' || 98 S3 25  11
+invalid literal for int() with base 10: '' || 89 SO2 30  8
+invalid literal for int() with base 10: '' || 63 S1 35  8
+invalid literal for int() with base 10: '' || 74 S1 38  8
+invalid literal for int() with base 10: '' || 87 SO2 30  8
+invalid literal for int() with base 10: '' || 85 SO2 37  10.4
+invalid literal for int() with base 10: '' || 64 S1 30  10.4
+invalid literal for int() with base 10: '' || 85 SO2 30  10.4
+invalid literal for int() with base 10: '' || 77 SO2 30  3.5
+invalid literal for int() with base 10: '' || 56 S1 24  3.5
+invalid literal for int() with base 10: '' || 57 S1 23  3.5
+invalid literal for int() with base 10: '' || 66 S1 30  9.7
+invalid literal for int() with base 10: '' || 59 S1 27  9.7
+invalid literal for int() with base 10: '' || 74 SO2 25  9.7
+invalid literal for int() with base 10: '' || 93 SN2 28  11.8
+invalid literal for int() with base 10: '' || 79 SO2 30  11.8
+invalid literal for int() with base 10: '' || 64 S1 28  11.8
+invalid literal for int() with base 10: '' || 78 SO2 27  11.8
+invalid literal for int() with base 10: '' || 95 SN2 28  6.7
+invalid literal for int() with base 10: '' || 81 SO2 24  6.7
+invalid literal for int() with base 10: '' || 77 SO2 26  6.7
+invalid literal for int() with base 10: '' || 83 SO2 28  6.7
+'SO2S3' is not in list || 108 SO2S3 28 108 11.1
+'SO2S3' is not in list || 102 SO2S3 28 103 12.9
+'SO2S3' is not in list || 109 SO2S3 31 144 8.4
+'SO2S3' is not in list || 120 SO2S3 36 92 5.9
+Added weight invalid: 78 89
+'89' is not in list || 78 89 34 6 6.4
+Added weight invalid: 65 32
+'32' is not in list || 65 32 34 326 11.6
+Added weight invalid: 64 82
+'82' is not in list || 64 82 24 35 10.1
+could not convert string to float: '3,7' || 64 74 34 8 3,7
+could not convert string to float: '3,7' || 78 X 37 8 3,7
+could not convert string to float: '3,7' || 78 X 33 8 3,7
+could not convert string to float: '3,7' || 82 X 35 8 3,7
+'S1 A' is not in list || 101 S1 A 39 270 4.6
+Added weight invalid: 67 45
+'45' is not in list || 67 45 45 242 8.6
+invalid literal for int() with base 10: '' ||  X 30 262 6.1
+'S1`' is not in list || 81 S1` 34 262 4.2
+'A' is not in list || 80 A 32 244 5.2
+Added weight invalid: 78 97
+'97' is not in list || 78 97 40 350 7.9
+invalid literal for int() with base 10: 'X' || 74 94 X 357 16.6
+Added weight invalid: 30 110
+'110' is not in list || 30 110 39 323 9.4
+invalid literal for int() with base 10: 'X' || 70 100 X 352 12.6
+could not convert string to float: '11,2' || 87 X 37 44 11,2
+could not convert string to float: '11,2' || 66 96 36 44 11,2
+could not convert string to float: '11,2' || 47 97 35 44 11,2
+could not convert string to float: '11,2' || 80 X 34 44 11,2
+invalid literal for int() with base 10: 'POP' || 46 66 POP 103 6.9
+invalid literal for int() with base 10: 'R' || 117 SN2 R 38 12.3
+invalid literal for int() with base 10: 'POP' || 48 108 POP 38 18
+invalid literal for int() with base 10: 'POP' || 109 S1 POP 22 16.4
+invalid literal for int() with base 10: 'POP' || 110 S1 POP 22 16.4
+invalid literal for int() with base 10: 'POP' || 103 S1 POP 22 16.4
+invalid literal for int() with base 10: 'POP' || 82 92 POP 25 13.5
+invalid literal for int() with base 10: 'X' || 79 99 X 50 11.8
+invalid literal for int() with base 10: 'POP' || 114 SO2 POP 31 11.1
+'S1 A' is not in list || 117 S1 A 38 307 11.4
+invalid literal for int() with base 10: 'LEGS' || 52 92 LEGS 318 9.3
+Added weight invalid: 76 85
+'85' is not in list || 76 85 39 307 6.3
+invalid literal for int() with base 10: '' || 65 X  262 2.8
+'SO1' is not in list || 74 SO1 30 231 15.6
+'S3 A' is not in list || 118 S3 A 28 241 9.4
+invalid literal for int() with base 10: '' ||     
+'SN2 S3 A' is not in list || 118 SN2 S3 A 30 241 12.5
+'S3 A' is not in list || 102 S3 A 30 156 9.8
+'SO2S3' is not in list || 122 SO2S3 38 143 3.2
+'S3 A' is not in list || 97 S3 A 28 271 8
+'SN2 A' is not in list || 103 SN2 A 30 246 8
+'SN2 A' is not in list || 82 SN2 A 38 238 11
+'SN2X2 S3 X' is not in list || 128 SN2X2 S3 X 42 143 12.4
+'SN2X2 S3 X' is not in list || 121 SN2X2 S3 X 30 162 14.7
+'SO2S3' is not in list || 96 SO2S3 39 158 16
+'S1 X' is not in list || 60 S1 X 34 181 16.8
+'SN2X2 S3 X' is not in list || 120 SN2X2 S3 X 44 172 15.8
+could not convert string to float: '4,4' || 72 S1 40 174 4,4
+could not convert string to float: '4,4' || 69 S1 36 174 4,4
+could not convert string to float: '4,4' || 65 S1 37 174 4,4
+could not convert string to float: '4,4' || 79 SO2 35 174 4,4
+'87A' is not in list || 77 87A 28 323 6
+invalid literal for int() with base 10: 'POP' || 68 X POP 318 3.6
+'84 A' is not in list || 74 84 A 30 288 5.2
+'S1 A' is not in list || 104 S1 A 36 288 5.2
+invalid literal for int() with base 10: 'POP' || 54 64 POP 20 2.2
+'S1`' is not in list || 87 S1` 40 309 2,5
+could not convert string to float: '2,5' || 53 83 44 309 2,5
+could not convert string to float: '2,5' || 72 X 42 309 2,5
+could not convert string to float: '2,5' || 90 S1 41 309 2,5
+'S1 A' is not in list || 97 S1 A 35 118 0.1
+invalid literal for int() with base 10: 'DNA' || 81 X DNA 6 8.2
+invalid literal for int() with base 10: '' || 69 79  315 4
+Added weight invalid: 75 20
+'20' is not in list || 75 20 33 346 5.3
+'S1 A' is not in list || 88 S1 A 32 358 2.4
+invalid literal for int() with base 10: '' || 111 SO2  323 8.6
+'10`' is not in list || 82 10` 30 15 8
+invalid literal for int() with base 10: '' || 85 X  313 10.3
+could not convert string to float: '11..5' || 62 92 32 326 11..5
+could not convert string to float: '11..5' || 72 92 23 326 11..5
+could not convert string to float: '11..5' || 68 98 36 326 11..5
+could not convert string to float: '11..5' || 61 91 42 326 11..5
+'78 A' is not in list || 68 78 A 38 322 4.5
+'A' is not in list || 76 A 30 340 3.6
+invalid literal for int() with base 10: 'POP' || 74 94 POP 311 9.1
+invalid literal for int() with base 10: '' || 64 84  318 6.5
+invalid literal for int() with base 10: '' || 71 X  318 6.5
+Added weight invalid: 85 89
+'89' is not in list || 85 89 18 309 5
+invalid literal for int() with base 10: '' || 86 S1  323 9.5
+'LL/A' is not in list || 94 LL/A 15 301 10.5
+'A' is not in list || 89 A 24 301 10.5
+invalid literal for int() with base 10: '61`' || 61` 71 31 312 9.7
+invalid literal for int() with base 10: 'X' || XX X X 309 9.1
+invalid literal for int() with base 10: 'X' || XX X X 2 6.8
+could not convert string to float: '5..8' || 80 S1 33 300 5..8
+could not convert string to float: '5..8' || 99 S1 44 300 5..8
+could not convert string to float: '5..8' || 103 SO2 33 300 5..8
+invalid literal for int() with base 10: '' || 53 73  63 12.8
+invalid literal for int() with base 10: '' || 88 S1  63 12.8
+invalid literal for int() with base 10: '' || 101 S1  70 13.2
+invalid literal for int() with base 10: 'POP' || 44 74 POP 37 14
+Added weight invalid: 58 72
+'72' is not in list || 58 72 42 90 9.1
+invalid literal for int() with base 10: 'DNA' || 58 SO2 S3 DNA 136 16.1
+invalid literal for int() with base 10: 'DNA' || 70 SO2 S3 DNA 120 17.1
+'SO2 + A' is not in list || 85 SO2 + A 33 101 4.7
+'SN2 X2 S3 X' is not in list || 117 SN2 X2 S3 X 32 139 8.1
+'N2 S3' is not in list || 110 N2 S3 38 137 13
+'N2' is not in list || 72 N2 35 139 13
+'SN2X2 S3 X' is not in list || 116 SN2X2 S3 X 37 191 9
+'SN2X2 S3 X' is not in list || 117 SN2X2 S3 X 34 191 9
+'SO2S3' is not in list || 101 SO2S3 36 210 9.7
+Added weight invalid: 76 98
+'98' is not in list || 76 98 31 352 10
+'S1 A' is not in list || 110 S1 A 28 27 8.6
+'91`' is not in list || 71 91` 34 13 11.1
+invalid literal for int() with base 10: '' || 66 96 35  
+invalid literal for int() with base 10: '' || 48 98 38  
+invalid literal for int() with base 10: '' || 64 94 32  
+invalid literal for int() with base 10: '' || 102 S1 38  
+invalid literal for int() with base 10: '' || 86 S1 29  
+invalid literal for int() with base 10: '' || 77 X 34  
+invalid literal for int() with base 10: '' || 69 79 32  
+'A' is not in list || 99 A 31 306 6.5
+'A' is not in list || 97 A 32 314 5
+Added weight invalid: 51 72
+'72' is not in list || 51 72 35 295 5.4
+invalid literal for int() with base 10: '' || 69 X 40  
+invalid literal for int() with base 10: '' || 77 X 43  
+invalid literal for int() with base 10: '' || 67 X 35  
+invalid literal for int() with base 10: '' || 50 70  260 4.6
+invalid literal for int() with base 10: '' ||   30 300 2.5
+Added weight invalid: 87 62
+'62' is not in list || 87 62 37 240 305
+Added weight invalid: 65 38
+'38' is not in list || 65 38 38 16 2.1
+invalid literal for int() with base 10: '' || 59 X  236 13.2
+invalid literal for int() with base 10: '' || 70 S1  236 13.2
+invalid literal for int() with base 10: 'X' || 63 X X  
+invalid literal for int() with base 10: '' || 96    
+invalid literal for int() with base 10: '' || 42    
+invalid literal for int() with base 10: 'POP' || 68 X POP 247 17.4
+invalid literal for int() with base 10: '' || 73 S1  226 19.4
+invalid literal for int() with base 10: '' || 77 S1  226 19.4
+invalid literal for int() with base 10: '' || 44 64  226 19.4
+invalid literal for int() with base 10: '' || 69 S1  226 19.4
+'A' is not in list || 73 A 39 106 5.7
+invalid literal for int() with base 10: '33--' || 71 S1 33-- 203 15.8
+invalid literal for int() with base 10: '56ISH' || 72 X 56ISH 251 11.5
+invalid literal for int() with base 10: '6-Feb' || 51 81 6-Feb 327 5.9
+invalid literal for int() with base 10: 'TW50-' || TW50- X 35 270 2.4
+invalid literal for int() with base 10: '20?' || 73 SO2 20? 264 6.5
+invalid literal for int() with base 10: '20?' || 88 SO2 20? 264 6.5
+invalid literal for int() with base 10: '35?' || 110 SO2 35? 296 6.8
+invalid literal for int() with base 10: '35?' || 82 S1 35? 296 6.8
+invalid literal for int() with base 10: 'X' || 78 X X 269 3.7
+Did not use 585 riders
