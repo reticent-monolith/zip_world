@@ -4,36 +4,38 @@
 # 8002 - Bigtop Client (Node, React)
 # 9001 - Eclipse Mosquitto Broker (websocket)
 
-
 services:
   backend:
     container_name: backend
-    image: reticientmonolith/winds-backend:latest
+    image: reticentmonolith/winds-backend
+    environment:
+      DB_URL: ${WINDS_DB_URL}
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: ${CLIENT_SECRET}
+      APPLICATION_ID: ${APPLICATION_ID}
+      API_KEY: ${API_KEY}
     depends_on:
       - winds_database
       - fusionauth_database
       - fusionauth
     networks:
       - db
-      - ext
     ports:
-      - 8000:8000
+      - ${SERVER_PORT}:8000
 
   bigbase:
     container_name: bigbase
-    image: reticientmonolith/winds-bigbase:latest
-    depends_on:
-      - backend
+    image: reticentmonolith/winds-bigbase
+    environment:
+      BACKEND_URL: ${BACKEND_URL}
     ports:
-      - 8001:80
+      - ${BIGBASE_PORT}:80
     
   bigtop:
     container_name: bigtop
-    image: reticientmonolith/winds-bigtop:latest
-    depends_on:
-      - backend
+    image: reticentmonolith/winds-bigtop
     ports:
-      - 8002:80
+      - ${BIGTOP_PORT}:80
 
   winds_database:
     container_name: winds_database
@@ -44,12 +46,9 @@ services:
       POSTGRES_DB: winds
     networks:
       - db
-      # - ext
-    # ports:
-      # - 5432:5432
     restart: on-failure
     volumes:
-      - ./volumes/postgres/scripts/winds:/docker-entrypoint-initdb.d
+      - ./postgres/winds:/docker-entrypoint-initdb.d
       - winds_data/:/var/lib/postgresql/data
 
 
@@ -62,12 +61,9 @@ services:
       POSTGRES_DB: fusionauth
     networks:
       - db
-      # - ext
-    # ports:
-      # - 5433:5432
     restart: on-failure
     volumes:
-      - ./volumes/postgres/scripts/fusionauth:/docker-entrypoint-initdb.d
+      - ./postgres/fusionauth:/docker-entrypoint-initdb.d
       - fa_data:/var/lib/postgresql/data
 
 
@@ -75,9 +71,9 @@ services:
     container_name: broker
     image: eclipse-mosquitto:latest
     volumes:
-      - "./volumes/mosquitto:/mosquitto/config"
+      - ./mosquitto:/mosquitto/config
     ports:
-      - 9001:9001
+      - ${MQTT_PORT}:9001
 
   fusionauth:
     image: fusionauth/fusionauth-app:latest
@@ -85,25 +81,20 @@ services:
     depends_on:
       - fusionauth_database
     environment:
-      DATABASE_URL: jdbc:postgresql://fusionauth_database:5432/fusionauth
+      DATABASE_URL: jdbc:postgresql://${FUSIONAUTH_DB_URL}:5432/fusionauth
       DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
       DATABASE_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
       DATABASE_USERNAME: ${FUSIONAUTH_DB_USER}
       DATABASE_PASSWORD: ${FUSIONAUTH_DB_PASS}
-    restart: unless-stopped
-    # ports:
-    #   - 9011:9011
+      restart: unless-stopped
     networks:
       - db
-      - ext
     volumes:
       - fa_config:/usr/local/fusionauth/config
 
 networks:
   db:
     internal: true
-  ext:
-    internal: false
 
 volumes:
   fa_data:

@@ -16,3 +16,6 @@ fusionauth/
 
 *.config
 *.env
+
+production_notes.txt
+

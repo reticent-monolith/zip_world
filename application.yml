@@ -1,115 +1,65 @@
-# PORTS
-# 8000 - Backend (Python, Quart, Hypercorn)
-# 8001 - Bigbase Client (Node, React)
-# 8002 - Bigtop Client (Node, React)
-# 9001 - Eclipse Mosquitto Broker (websocket)
-
-
 services:
-  backend:
-    container_name: backend
-    build: "./backend"
-    depends_on:
-      - winds_database
-      - fusionauth_database
-      - fusionauth
-    networks:
-      - db
-      - ext
-    ports:
-      - 8000:8000
-
-  bigbase:
-    container_name: bigbase
-    build: 
-      context: ./bigbase
-      dockerfile: Dockerfile
-    depends_on:
-      - backend
-    ports:
-      - 8001:80
-    
-  bigtop:
-    container_name: bigtop
-    build: 
-      context: ./bigtop
-      dockerfile: Dockerfile
-    depends_on:
-      - backend
-    ports:
-      - 8002:80
-
-  winds_database:
-    container_name: winds_database
-    image: postgres
-    environment: 
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: winds
-    networks:
-      - db
-      # - ext
-    # ports:
-      # - 5432:5432
-    restart: on-failure
-    volumes:
-      - ./volumes/postgres/scripts/winds:/docker-entrypoint-initdb.d
-      - winds_data/:/var/lib/postgresql/data
-
-
-  fusionauth_database:
-    container_name: fusionauth_database
-    image: postgres
-    environment: 
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: fusionauth
-    networks:
-      - db
-      # - ext
-    # ports:
-      # - 5433:5432
-    restart: on-failure
-    volumes:
-      - ./volumes/postgres/scripts/fusionauth:/docker-entrypoint-initdb.d
-      - fa_data:/var/lib/postgresql/data
-
-
+  # SERVICES
+  # fusionauth:
+  #   image: fusionauth/fusionauth-app:latest
+  #   container_name: fusionauth
+  #   environment:
+  #     DATABASE_URL: jdbc:postgresql://${FUSIONAUTH_DB_HOSTNAME}:${FUSIONAUTH_DB_PORT}/fusionauth
+  #     DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
+  #     DATABASE_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
+  #     DATABASE_USERNAME: ${FUSIONAUTH_DB_USER}
+  #     DATABASE_PASSWORD: ${FUSIONAUTH_DB_PASS}
+  #     restart: unless-stopped
+  #   volumes:
+  #     - fa_config:/usr/local/fusionauth/config
+  #   ports:
+  #     - target: 9011
+  #       published: ${FUSIONAUTH_PORT}
   broker:
     container_name: broker
     image: eclipse-mosquitto:latest
     volumes:
-      - "./volumes/mosquitto:/mosquitto/config"
+      - ./mosquitto:/mosquitto/config
     ports:
-      - 9001:9001
+      - target: 9001
+        published: ${BROKER_PORT}
 
-  fusionauth:
-    image: fusionauth/fusionauth-app:latest
-    container_name: fusionauth
-    depends_on:
-      - fusionauth_database
-    environment:
-      DATABASE_URL: jdbc:postgresql://fusionauth_database:5432/fusionauth
-      DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
-      DATABASE_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
-      DATABASE_USERNAME: ${FUSIONAUTH_DB_USER}
-      DATABASE_PASSWORD: ${FUSIONAUTH_DB_PASS}
-    restart: unless-stopped
-    # ports:
-    #   - 9011:9011
-    networks:
-      - db
-      - ext
-    volumes:
-      - fa_config:/usr/local/fusionauth/config
+  # # BACKEND
+  # backend:
+  #   container_name: backend
+  #   build: 
+  #     context: ./backend
+  #   environment:
+  #     BACKEND_URL: ${BACKEND_URL}
+  #     BIGBASE_URL: ${BIGBASE_URL}
+  #     FUSIONAUTH_URL: ${FUSIONAUTH_URL}
+  #     WINDS_DB_HOSTNAME: ${WINDS_DB_HOSTNAME}
+  #     WINDS_DB_PORT: ${WINDS_DB_PORT}
+  #     CLIENT_ID: ${CLIENT_ID}
+  #     CLIENT_SECRET: ${CLIENT_SECRET}
+  #     APPLICATION_ID: ${APPLICATION_ID}
+  #     API_KEY: ${API_KEY}
+  #   ports:
+  #     - target: 8000
+  #       published: ${BACKEND_PORT}
 
-networks:
-  db:
-    internal: true
-  ext:
-    internal: false
+  # # FRONTENDS
+  # bigbase:
+  #   container_name: bigbase
+  #   build: 
+  #     context: ./bigbase
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - target: 80
+  #       published: ${BIGBASE_PORT}
+  # bigtop:
+  #   container_name: bigtop
+  #   build: 
+  #     context: ./bigtop
+  #     dockerfile: Dockerfile.dev
+  #   ports:
+  #     - target: 80
+  #       published: ${BIGTOP_PORT}
 
-volumes:
-  fa_data:
-  fa_config:
-  winds_data:
+# volumes:
+#   fa_config:

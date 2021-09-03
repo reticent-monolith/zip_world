@@ -10,15 +10,10 @@ import EditModal from "./components/modals/EditModal";
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+console.log(process.env)
+
 // Set where the application is communicating with
-const RETMON = "http://localhost:5000/api/"
-const SITE = "https://backend.reticent-monolith.com/"
-let URL
-if (process.env.NODE_ENV === "development") {
-    URL = RETMON
-} else {
-    URL = SITE
-}
+const URL = process.env.NODE_ENV === "development" ? "http://192.168.1.133:8000" : process.env.REACT_APP_BACKEND_URL
 // Today's date for initial getDispatches call
 const timestamp = new Date().toLocaleDateString('en-GB').split("/").map(x => {
     let n = x.toString();
@@ -54,7 +49,14 @@ export default class App extends React.Component {
             id: "",
             editing: null,
             editModalIsOpen: false,
-            user: {}
+            user: {
+                name: sessionStorage.getItem("name"),
+                email: sessionStorage.getItem("email")
+            },
+            loginDetails: {
+                username: "",
+                password: ""
+            }
         }
 
         this.styles = {
@@ -103,13 +105,14 @@ export default class App extends React.Component {
 
     // Get today's dispatches when page is opened
     componentDidMount() {
-        // Get the logged in user's info
-        fetch(`${URL}user`, {credentials: "include"})
-            .then(res => res.json())
-            .then(res => this.setState({
-                ...this.state,
-                user: res
-            }))
+        // THis is fusionauth TODO clean up if not using
+        // // Get the logged in user's info
+        // fetch(`${URL}/user`, {credentials: "include"})
+        //     .then(res => res.json())
+        //     .then(res => this.setState({
+        //         ...this.state,
+        //         user: res
+        //     }))
         // Get today's dispatches
         this.getDispatches(TODAY)
     }
@@ -117,7 +120,7 @@ export default class App extends React.Component {
     render() {
         const {dispatches, id, editModalIsOpen, editing, user} = this.state
         console.log(this.state)
-        if (user.user) {
+        if (sessionStorage.getItem("token")) {
             return (
                 <div style={{minWidth: "1080px"}}>
                     <ContextMenu 
@@ -139,6 +142,7 @@ export default class App extends React.Component {
                         createDispatch={this.createDispatch}
                         purge={this.purgeDatabase}
                         getByRange={this.getDispatchesByRange}
+                        user={this.state.user}
                     />
 
                     {/* The dispatches from today as cards */}
@@ -151,8 +155,9 @@ export default class App extends React.Component {
                     }}>
                         <div>
                             {/* TODO remove this */}
-                            <p>Logged in as {user.user.email}</p>
-                            <a href={`${URL}logout`}>Logout</a>
+                            <p>Logged in as {user.email}</p>
+                            <button 
+                                onClick={this.logout}>Logout</button>
                             {dispatches.map(d => {
                                 const dispatch = new Dispatch(d)
                                 return (
@@ -171,7 +176,45 @@ export default class App extends React.Component {
         } else {
             return (
                 <div>
-                    <a href={`${URL}login`}>Log in here</a>
+                    <input 
+                        type="text" 
+                        name="username"
+                        onChange={ e => {
+                            this.setState({
+                                ...this.state,
+                                loginDetails: {
+                                    ...this.state.loginDetails,
+                                    username: e.target.value
+                                }
+                            })
+                        }}></input>
+                    <input 
+                        type="password" 
+                        name="password"
+                        onChange={e => {
+                            this.setState({
+                                ...this.state,
+                                loginDetails: {
+                                    ...this.state.loginDetails,
+                                    password: e.target.value
+                                }
+                            })
+                        }}></input>
+                    <button 
+                        onClick={ async () => {
+                            try {
+                                const response = await axios.post(`${URL}/login`, this.state.loginDetails)
+                                console.log(response.data)
+                                if (response.data.token) {
+                                    window.sessionStorage.setItem("token", response.data.token)
+                                    window.sessionStorage.setItem("email", response.data.email)
+                                    window.sessionStorage.setItem("name", response.data.name)
+                                    window.location.assign(window.location)
+                                }
+                            } catch (error) {
+                                Log.error(error)
+                            }
+                        }}>Login</button>
                 </div>
             )
         }
@@ -184,11 +227,19 @@ export default class App extends React.Component {
 
     async getDispatches(date) {
         try {
-            const response = await axios.get(`${URL}bydate/${date}`)
+            const response = await axios.get(`${URL}/bydate?date=${date}&token=${sessionStorage.getItem("token")}`)
             console.log(response)
-            this.setState({dispatches: response.data.reverse().map( d => {
-                return new Dispatch(d)
-            })})
+            if (response.data.error === "session_expired") {
+                console.log("Need to logout here")
+                window.sessionStorage.clear()
+                window.location.assign(window.location)
+            } else if (response.data.error === "no_session") {
+                
+            } else {
+                this.setState({dispatches: response.data.reverse().map( d => {
+                    return new Dispatch(d)
+                })}) 
+            }
         } catch (error) {
             Log.error(error)
         }
@@ -197,7 +248,7 @@ export default class App extends React.Component {
     async getDispatchesByRange(start, end) {
         try {
             const response = await axios.get(
-                `${URL}bydaterange`,
+                `${URL}/bydaterange`,
                 {params: {
                     start: start,
                     end: end
@@ -213,6 +264,7 @@ export default class App extends React.Component {
 
     async createDispatch(dispatch) {
         const dispatchPayload = new Dispatch(dispatch)
+        dispatchPayload.windsInstructor = this.state.user.user.name
         delete dispatchPayload._id
         const arr = [1,2,3,4]
         arr.forEach(i => {
@@ -221,7 +273,7 @@ export default class App extends React.Component {
             if (dispatchPayload.riders[i].rearSlider === "") delete dispatchPayload.riders[i].rearSlider
         })
         try {
-            await axios.post(`${URL}add`, dispatchPayload)
+            await axios.post(`${URL}/add?token=${sessionStorage.getItem("token")}`, dispatchPayload)
             this.getDispatches(TODAY)
         } catch (error) {
             Log.error(error)
@@ -236,7 +288,7 @@ export default class App extends React.Component {
             if (dispatch.riders[i].rearSlider === "") delete dispatch.riders[i].rearSlider
         })
         try {
-            await axios.post(`${URL}update`, dispatch)
+            await axios.post(`${URL}/update?token=${sessionStorage.getItem("token")}`, dispatch)
             this.getDispatches(TODAY)
         } catch (error) {
             Log.error(error)
@@ -245,7 +297,7 @@ export default class App extends React.Component {
 
     async deleteDispatch(id) {
         try {
-            await axios.post(`${URL}delete`, id)
+            await axios.post(`${URL}/delete?token=${sessionStorage.getItem("token")}`, id)
             this.getDispatches(TODAY)
         } catch (error) {
             Log.error(error)
@@ -254,7 +306,7 @@ export default class App extends React.Component {
 
     async purgeDatabase() {
         try {
-            await axios.delete(`${URL}purge`)
+            await axios.delete(`${URL}/purge`)
             this.getDispatches(TODAY)
         } catch (error) {
             Log.error(error)
@@ -263,11 +315,18 @@ export default class App extends React.Component {
 
     async getDispatchById(id) {
         try {
-            const dispatch = await axios.get(`${URL}byid/${id}`)
+            const dispatch = await axios.get(`${URL}/byid?id=${id}&token=${sessionStorage.getItem("token")}`)
             this.getDispatches(TODAY)
             return dispatch
         } catch (error) {
             Log.error(error)
         }
+    }
+
+    async logout() {
+        let response = await axios.get(`${URL}/logout`)
+        Log.debug(response.data)
+        sessionStorage.clear()  
+        window.location.assign(window.location)
     }
 }

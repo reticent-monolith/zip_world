@@ -1,0 +1,17 @@
+# build environment
+FROM node:latest as build
+WORKDIR /app
+ENV PATH=/app/node_modules/.bin:$PATH
+ENV REACT_APP_BACKEND_URL=http://localhost:8000
+ENV REACT_APP_BROKER_URL=ws://localhost:9001
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install react-scripts -g --silent
+COPY . ./
+RUN npm run build
+
+# production environment
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+CMD ["nginx", "-g", "daemon off;"]

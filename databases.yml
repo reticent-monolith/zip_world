@@ -1,0 +1,32 @@
+services:
+  winds_database:
+    container_name: winds_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: winds
+    restart: on-failure
+    ports:
+      - target: 5432
+        published: ${WINDS_DB_PORT}
+    volumes:
+      - ./postgres/winds:/docker-entrypoint-initdb.d
+      - winds_data/:/var/lib/postgresql/data
+  # fusionauth_database:
+  #   container_name: fusionauth_database
+  #   image: postgres
+  #   environment: 
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     POSTGRES_DB: fusionauth
+  #   ports:
+  #     - target: 5432
+  #       published: ${FUSIONAUTH_DB_PORT}
+  #   restart: on-failure
+  #   volumes:
+  #     - fa_data:/var/lib/postgresql/data
+
+volumes:
+  # fa_data:
+  winds_data:

@@ -34,13 +34,15 @@ def dispatches_from(cursor) -> list:
 columns = "(datetime, weight4, front4, middle4, rear4, added4, speed4, trolley4, weight3, front3, middle3, rear3, added3, speed3, trolley3, weight2, front2, middle2, rear2, added2, speed2, trolley2, weight1, front1, middle1, rear1, added1, speed1, trolley1, windspeed, winddirection, windsinstructor, bigtopinstructor, comment)"
 
 class PgSQLDispatchRepo:
-    def __init__(self, conn_str="127.0.0.1"):
+    def __init__(self, host, port):
         self.conn = psycopg2.connect(
-            user="zw_admin",
-            password="zw_pass",
-            host=conn_str,
-            database="winds"
+            user="winds",
+            password="password",
+            host=host,
+            dbname="winds",
+            port=port
         )
+        print(f"Connected to winds database ({host}:{port})")
 
     def close_connection(self):
         self.conn.close()

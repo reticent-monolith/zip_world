@@ -10,10 +10,12 @@ import MqttService from "../mqtt/MqttService";
 import drip from "../res/sounds/drip.mp3"
 import UIfx from "uifx"
 
+require('dotenv').config()
+
 // Register locale for DatePickers
 registerLocale('enGB', enGB)
 
-let WS_URL = "ws://localhost:9001"
+let WS_URL = process.env.REACT_APP_BROKER_URL
 
 export default class Controls extends React.Component {
     constructor(props) {
@@ -60,7 +62,7 @@ export default class Controls extends React.Component {
                 },
                 windSpeed: 0,
                 windDegrees: 0,
-                windsInstructor: "",
+                // windsInstructor: this.props.user.name,
                 btRadio: "",
                 comment: ""
             },
@@ -777,7 +779,7 @@ export default class Controls extends React.Component {
                         <input
                             type="text"
                             style={this.styles.inputL}
-                            value={dispatch.windsInstructor}
+                            value={this.props.user.name}
                             onFocus={e => e.currentTarget.select()}
                             onChange={e => {
                                 this.setState({
@@ -827,7 +829,7 @@ export default class Controls extends React.Component {
                         style={this.styles.button}
                         variant="success"
                         onClick={e => {
-                            if (this.goodToGo()) {
+                            if (this.goodToGo() || true) { // TODO remove true
                                 this.props.createDispatch(dispatch)
                                 this.clearInputs()
                             } else {
