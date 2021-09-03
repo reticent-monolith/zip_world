@@ -2,7 +2,7 @@ from quart import Quart, request, jsonify, make_response, url_for
 from quart.utils import redirect
 from quart_cors import cors
 from quart_session import Session
-from repos.pgsql import PgSQLDispatchRepo
+from repos.pgsql import PgSQLDispatchRepo, PgSQLUserRepo
 from models.dispatch import Dispatch
 import os
 from dotenv import load_dotenv
@@ -42,6 +42,7 @@ dev_user = {
 }
 
 dispatch_repo = PgSQLDispatchRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
+user_repo = PgSQLUserRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
 
 # DISPATCH ROUTES
 @app.route('/bydate')

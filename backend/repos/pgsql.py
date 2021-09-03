@@ -173,10 +173,12 @@ class PgSQLDispatchRepo:
 
 
 class PgSQLUserRepo:
-    def __init__(self, conn_str="127.0.0.1"):
+    def __init__(self, host, port):
         self.conn = psycopg2.connect(
-            user="fusionauth",
-            password="fusionpass",
-            host=conn_str,
-            database="fusionauth"
+            user="winds",
+            password="password",
+            host=host,
+            dbname="winds",
+            port=port
         )
+        print(f"Connected to winds database ({host}:{port})")

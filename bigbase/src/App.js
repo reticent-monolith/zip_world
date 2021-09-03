@@ -33,13 +33,11 @@ export default class App extends React.Component {
 
         // Create bindings for the async network methods
         // TODO: can these not be arrow functions to remove need to bind?
-        this.getDispatches = this.getDispatches.bind(this)
-        this.createDispatch = this.createDispatch.bind(this)
-        this.updateDispatch = this.updateDispatch.bind(this)
-        this.deleteDispatch = this.deleteDispatch.bind(this)
-        this.purgeDatabase = this.purgeDatabase.bind(this)
-        this.getDispatchById = this.getDispatchById.bind(this)
-        this.getDispatchesByRange = this.getDispatchesByRange.bind(this)
+        // this.getDispatches = this.getDispatches.bind(this)
+        // this.createDispatch = this.createDispatch.bind(this)
+        // this.updateDispatch = this.updateDispatch.bind(this)
+        // this.deleteDispatch = this.deleteDispatch.bind(this)
+        // this.getDispatchById = this.getDispatchById.bind(this)
 
         // For Modal accessibility
         Modal.setAppElement('#root');
@@ -225,17 +223,20 @@ export default class App extends React.Component {
     //  | Network Methods |
     // +-----------------+
 
-    async getDispatches(date) {
+    getDispatches = async date => {
         try {
             const response = await axios.get(`${URL}/bydate?date=${date}&token=${sessionStorage.getItem("token")}`)
             console.log(response)
             if (response.data.error === "session_expired") {
+                // clear the sessionStorage and reload app
                 window.sessionStorage.clear()
                 window.location.assign(window.location)
             } else if (response.data.error === "no_session") {
-                
+                // TODO should anything happen here?
             } else {
+                // refresh the token with the new one from the server
                 window.sessionStorage.setItem("token", response.data.token)
+                //  get dispatches
                 this.setState({dispatches: response.data.dispatches.reverse().map( d => {
                     return new Dispatch(d)
                 })}) 
@@ -245,24 +246,7 @@ export default class App extends React.Component {
         }
     }
 
-    async getDispatchesByRange(start, end) {
-        try {
-            const response = await axios.get(
-                `${URL}/bydaterange`,
-                {params: {
-                    start: start,
-                    end: end
-                }}
-            )
-            this.setState({dispatches: response.data.map( d => {
-                return new Dispatch(d)
-            })})
-        } catch (error) {
-            Log.error(error)
-        }
-    }
-
-    async createDispatch(dispatch) {
+    createDispatch = async dispatch => {
         const dispatchPayload = new Dispatch(dispatch)
         dispatchPayload.windsInstructor = this.state.user.user.name
         delete dispatchPayload._id
@@ -280,7 +264,7 @@ export default class App extends React.Component {
         }
     }
 
-    async updateDispatch(dispatch) {
+    updateDispatch = async dispatch => {
         const arr = [1, 2, 3, 4]
         arr.forEach(i => {
             if (dispatch.riders[i].frontSlider === "") delete dispatch.riders[i].frontSlider
@@ -295,7 +279,7 @@ export default class App extends React.Component {
         }
     }
 
-    async deleteDispatch(id) {
+    deleteDispatch = async id => {
         try {
             await axios.post(`${URL}/delete?token=${sessionStorage.getItem("token")}`, id)
             this.getDispatches(TODAY)
@@ -304,16 +288,7 @@ export default class App extends React.Component {
         }
     }
 
-    async purgeDatabase() {
-        try {
-            await axios.delete(`${URL}/purge`)
-            this.getDispatches(TODAY)
-        } catch (error) {
-            Log.error(error)
-        }
-    }
-
-    async getDispatchById(id) {
+    getDispatchById = async id => {
         try {
             const dispatch = await axios.get(`${URL}/byid?id=${id}&token=${sessionStorage.getItem("token")}`)
             this.getDispatches(TODAY)
@@ -323,7 +298,7 @@ export default class App extends React.Component {
         }
     }
 
-    async logout() {
+    logout = async () => {
         let response = await axios.get(`${URL}/logout`)
         Log.debug(response.data)
         sessionStorage.clear()  
