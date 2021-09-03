@@ -230,13 +230,13 @@ export default class App extends React.Component {
             const response = await axios.get(`${URL}/bydate?date=${date}&token=${sessionStorage.getItem("token")}`)
             console.log(response)
             if (response.data.error === "session_expired") {
-                console.log("Need to logout here")
                 window.sessionStorage.clear()
                 window.location.assign(window.location)
             } else if (response.data.error === "no_session") {
                 
             } else {
-                this.setState({dispatches: response.data.reverse().map( d => {
+                window.sessionStorage.setItem("token", response.data.token)
+                this.setState({dispatches: response.data.dispatches.reverse().map( d => {
                     return new Dispatch(d)
                 })}) 
             }

@@ -6,6 +6,7 @@ from repos.pgsql import PgSQLDispatchRepo
 from models.dispatch import Dispatch
 import os
 from dotenv import load_dotenv
+import uuid
 
 load_dotenv()
 BACKEND_URL = os.environ['BACKEND_URL']
@@ -30,7 +31,7 @@ Session(app)
 cache = app.session_interface
 async def refresh_session():
     print("Refreshing session...")
-    await cache.set("token", "TOKEN", expiry=TOKEN_LIFESPAN)
+    await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
 
 # TODO this should be in a database, hashed
 dev_user = {
@@ -59,7 +60,7 @@ async def by_date():
         if token == stored_token:
             await refresh_session()
             dispatches = [dispatch.as_dict() for dispatch in dispatch_repo.by_date(date)]
-            response = make_response(jsonify(dispatches), 200,)
+            response = make_response(jsonify({"token": (await cache.get("token")).decode("utf-8"), "dispatches":dispatches}), 200,)
             return await response
         elif token == "null":
             print(f"No session")
@@ -160,7 +161,7 @@ async def login():
     if request.method == "POST":
         sent_details = await request.json
         if sent_details["password"] == dev_user["password"]:
-            await cache.set("token", "TOKEN", expiry=TOKEN_LIFESPAN)
+            await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
             return await make_response(jsonify({
                 "name": dev_user["name"],
                 "email": dev_user["email"],
