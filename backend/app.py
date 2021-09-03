@@ -33,14 +33,6 @@ async def refresh_session():
     print("Refreshing session...")
     await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
 
-# TODO this should be in a database, hashed
-dev_user = {
-    "username": "dev",
-    "password": "pass",
-    "name": "Ben",
-    "email": "dev@winds.com"
-}
-
 dispatch_repo = PgSQLDispatchRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
 user_repo = PgSQLUserRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
 
@@ -161,11 +153,15 @@ async def update():
 async def login():
     if request.method == "POST":
         sent_details = await request.json
-        if sent_details["password"] == dev_user["password"]:
+        # TODO integrate user repo here
+        print(sent_details["username"])
+        user = user_repo.get_user(sent_details["username"])
+        print(user)
+        if sent_details["password_hash"] == user["password_hash"]:
             await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
             return await make_response(jsonify({
-                "name": dev_user["name"],
-                "email": dev_user["email"],
+                "name": user["first_name"],
+                "email": user["email"],
                 "token": (await cache.get("token")).decode("utf-8")
             }), 200)
         else:

@@ -36,9 +36,17 @@ CREATE TABLE data (
 	comment VARCHAR(200)
 );
 
+CREATE TABLE users (
+	username VARCHAR(30) PRIMARY KEY,
+	email VARCHAR(60),
+	password_hash VARCHAR(128),
+	first_name VARCHAR(30)
+);
+
 CREATE USER winds WITH PASSWORD 'password';
 GRANT ALL ON DATABASE winds TO winds;
 GRANT ALL ON TABLE data TO winds;
+GRANT ALL ON TABLE users TO winds;
 GRANT USAGE ON SCHEMA public TO winds;
 GRANT USAGE ON ALL SEQUENCES IN SCHEMA PUBLIC TO winds;
 
@@ -64,6 +72,12 @@ INSERT INTO data VALUES (
 	12.3, 289,
 	'Ben', 'Sam',
 	'This is another comment'
+);
+
+
+
+INSERT INTO users VALUES (
+	'ben123', 'ben@winds.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Ben'
 );
 
 

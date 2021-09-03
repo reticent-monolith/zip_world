@@ -50,7 +50,6 @@ class PgSQLDispatchRepo:
     def get_all(self) -> list:
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute("SELECT * FROM data")
                 results = dispatches_from(cursor)
                 cursor.close()
@@ -59,7 +58,6 @@ class PgSQLDispatchRepo:
     def by_id(self, _id) -> Dispatch:
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute("SELECT * FROM data WHERE id = %s", (_id,))
                 results = dispatches_from(cursor)
                 cursor.close()
@@ -70,7 +68,6 @@ class PgSQLDispatchRepo:
         end = str(datetime.datetime.fromisoformat(f"{date} 23:59:59"))
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute("SELECT * FROM data WHERE datetime >= %s AND datetime < %s", (start, end))
                 results = dispatches_from(cursor)
                 cursor.close()
@@ -79,14 +76,12 @@ class PgSQLDispatchRepo:
     def delete(self, id) -> None:
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute("DELETE FROM data WHERE id = %s", (id.decode(),)) # why is it being passed as bytes?
             self.conn.commit()
 
     def update(self, d: Dispatch):
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute((
                     "UPDATE data SET "
                     "weight4=%s,front4=%s,middle4=%s,rear4=%s,added4=%s,speed4=%s,trolley4=%s,"
@@ -134,7 +129,6 @@ class PgSQLDispatchRepo:
     def add(self, d: Dispatch) -> int:
         with self.conn:
             with self.conn.cursor() as cursor:
-                cursor = self.conn.cursor()
                 cursor.execute(f"INSERT INTO data {columns} VALUES ({'%s,'*33}%s)", (
                     f"{d.date} {d.time}",
                     d.riders["4"].weight          if d.riders["4"] else None,
@@ -182,3 +176,17 @@ class PgSQLUserRepo:
             port=port
         )
         print(f"Connected to winds database ({host}:{port})")
+
+    def get_user(self, username):
+        with self.conn:
+            with self.conn.cursor() as cursor:
+                cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+                results = cursor.fetchall()[0]
+                cursor.close()
+                user = {
+                    "username": results[0],
+                    "email": results[1],
+                    "password_hash": results[2],
+                    "first_name": results[3]
+                }
+                return user

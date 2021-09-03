@@ -10,6 +10,8 @@ import EditModal from "./components/modals/EditModal";
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { sha256 } from 'js-sha256'
+
 console.log(process.env)
 
 // Set where the application is communicating with
@@ -200,8 +202,11 @@ export default class App extends React.Component {
                         }}></input>
                     <button 
                         onClick={ async () => {
+                            let username = this.state.loginDetails.username
+                            let password = this.state.loginDetails.password
+                            let hashedPassword = sha256(password)
                             try {
-                                const response = await axios.post(`${URL}/login`, this.state.loginDetails)
+                                const response = await axios.post(`${URL}/login`, {username: username, password_hash: hashedPassword})
                                 console.log(response.data)
                                 if (response.data.token) {
                                     window.sessionStorage.setItem("token", response.data.token)
