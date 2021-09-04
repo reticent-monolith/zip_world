@@ -9,11 +9,27 @@ services:
       - target: 9001
         published: ${BROKER_PORT}
 
+  winds_database:
+    container_name: winds_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: winds
+    restart: on-failure
+    ports:
+      - target: 5432
+        published: ${WINDS_DB_PORT}
+    volumes:
+      - ./postgres/winds:/docker-entrypoint-initdb.d
+      - winds_data/:/var/lib/postgresql/data
+
   # BACKEND
   backend:
     container_name: backend
-    build: 
-      context: ./backend
+    image: reticentmonolith/winds-backend:latest
+    depends_on:
+      - winds_database
     environment:
       BACKEND_URL: ${BACKEND_URL}
       BIGBASE_URL: ${BIGBASE_URL}
@@ -26,17 +42,16 @@ services:
   # FRONTENDS
   bigbase:
     container_name: bigbase
-    build: 
-      context: ./bigbase
-      dockerfile: Dockerfile.dev
+    image: reticentmonolith/winds-bigbase:latest
     ports:
       - target: 80
         published: ${BIGBASE_PORT}
   bigtop:
     container_name: bigtop
-    build: 
-      context: ./bigtop
-      dockerfile: Dockerfile.dev
+    image: reticentmonolith/winds-bigtop:latest
     ports:
       - target: 80
         published: ${BIGTOP_PORT}
+
+volumes:
+  winds_data:

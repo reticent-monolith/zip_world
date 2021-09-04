@@ -11,4 +11,24 @@ input[type=number] {
 
 App {
     min-width: 1080px;
+    
+}
+
+
+
+#login-form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    align-items: center;
+    margin-top: 50px
+}
+
+#login-form input {
+    margin: 5px;
+}
+
+#login-form button {
+    margin: 5px;
+    width: 30%
 }

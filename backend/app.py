@@ -8,27 +8,29 @@ import os
 from dotenv import load_dotenv
 import uuid
 
+import asyncio
+import aiomcache
+
 load_dotenv()
 BACKEND_URL = os.environ['BACKEND_URL']
-FUSIONAUTH_URL = os.environ['FUSIONAUTH_URL']
 BIGBASE_URL=os.environ["BIGBASE_URL"]
-CLIENT_ID = os.environ['CLIENT_ID']
-CLIENT_SECRET = os.environ['CLIENT_SECRET']
-APPLICATION_ID = os.environ['APPLICATION_ID']
-API_KEY = os.environ['API_KEY']
-REDIRECT_URI = f"{BACKEND_URL}/oauth-redirect"
 WINDS_DB_HOSTNAME = os.environ["WINDS_DB_HOSTNAME"]
 WINDS_DB_PORT = os.environ["WINDS_DB_PORT"]
 
 TOKEN_LIFESPAN = 1800
 
 app = Quart(__name__)
-app.secret_key = CLIENT_SECRET
+app.secret_key = uuid.uuid4().hex
 app = cors(app, allow_origin=BIGBASE_URL, allow_headers="content-type", allow_credentials=True)
+
+# Quart-Session config
 app.config['SESSION_TYPE'] = 'memcached'
 Session(app)
-
 cache = app.session_interface
+
+# DIY session cache
+# cache = aiomcache.Client("127.0.0.1", 11211)
+
 async def refresh_session():
     print("Refreshing session...")
     await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
@@ -152,19 +154,34 @@ async def update():
 @app.route("/login", methods=['POST', 'OPTIONS'])
 async def login():
     if request.method == "POST":
+        log = open("./logs/log", "w")
         sent_details = await request.json
-        # TODO integrate user repo here
-        print(sent_details["username"])
-        user = user_repo.get_user(sent_details["username"])
-        print(user)
-        if sent_details["password_hash"] == user["password_hash"]:
-            await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
-            return await make_response(jsonify({
-                "name": user["first_name"],
-                "email": user["email"],
-                "token": (await cache.get("token")).decode("utf-8")
-            }), 200)
-        else:
+
+        log.write(f"sent_details = {sent_details}\n") # TODO remove this and other log statements
+
+        try:
+            user = user_repo.get_user(sent_details["username"])
+
+            log.write(f"user = {user}\n")
+
+            if sent_details["password_hash"] == user["password_hash"]:
+
+                log.write("Hashes match\n")
+
+                print(f"Logging in: {user['first_name']} ({user['email']})")
+                await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
+                log.close()
+                return await make_response(jsonify({
+                    "name": user["first_name"],
+                    "email": user["email"],
+                    "token": (await cache.get("token")).decode("utf-8")
+                }), 200)
+            else:
+                raise Exception("Bad credentials")
+        except Exception as e:    
+            print(e)
+            log.write(f"EXCEPTION: {e}")
+            log.close()
             return await make_response(jsonify({
                 "error": "Incorrect username or password"
             }), 200)
@@ -173,6 +190,7 @@ async def login():
 
 @app.route("/logout")
 async def logout():
+    print("Logging out")
     try:
         await cache.delete("token")
     except Exception as e:
@@ -180,67 +198,3 @@ async def logout():
     return await make_response(jsonify({
         "loggedOut": True
     }), 200)
-
-
-
-
-
-
-
-
-
-# Fusionauth routes
-# @app.route("/loginf")
-# async def loginf():
-#     return redirect(f"{FUSIONAUTH_URL}/oauth2/authorize?client_id={CLIENT_ID}&redirect_uri={REDIRECT_URI}&response_type=code")
-
-# @app.route("/logoutf")
-# async def logoutf():
-#     session.clear()
-#     return redirect(f"{FUSIONAUTH_URL}/oauth2/logout?client_id={CLIENT_ID}")
-
-# @app.route("/user")
-# async def user():
-#     if session.get("token"):
-#         user_info = requests.post(
-#             f"{FUSIONAUTH_URL}/oauth2/introspect",
-#             {
-#                 "client_id": CLIENT_ID,
-#                 "token": session.get("token")
-#             }
-#         ).json()
-#         print(user_info)
-#         if user_info.get("active") == True:
-#             body = requests.get(
-#                 f"{FUSIONAUTH_URL}/user/{user_info.get('sub')}/{APPLICATION_ID}",
-#                 headers={"Authorization": API_KEY}
-#             )
-#             print(body)
-#             body = body.json() | {"token": session.get("token")}
-#             return await make_response(jsonify(body), 200)
-#         else:
-#             print("NOT ACTIVE")
-#             return await make_response(jsonify({}), 200)
-#     else:
-#         print("NO TOKEN")
-#         return await make_response(jsonify({}), 200)
-
-# @app.route("/oauth-redirect")
-# async def callback():
-#     code = (await request.values).get("code")
-#     print(f"Code = {code}")
-#     token = requests.post(
-#         f"{FUSIONAUTH_URL}/oauth2/token",
-#         {
-#             "client_id": CLIENT_ID,
-#             "client_secret": CLIENT_SECRET,
-#             "code": code,
-#             "grant_type": "authorization_code",
-#             "redirect_uri": REDIRECT_URI
-#         }
-#     ).json().get("access_token")
-#     print(f"Token = {token}")
-#     session["token"] = token
-#     return redirect(BIGBASE_URL)
-
-

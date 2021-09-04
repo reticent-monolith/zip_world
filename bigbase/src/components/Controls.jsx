@@ -776,21 +776,7 @@ export default class Controls extends React.Component {
                     <div style={this.styles.windContainer.row}>
                         {/* winds instructor */}
                         <label style={this.styles.windContainer.row.label}>Winds Instructor</label>
-                        <input
-                            type="text"
-                            style={this.styles.inputL}
-                            value={this.props.user.name}
-                            onFocus={e => e.currentTarget.select()}
-                            onChange={e => {
-                                this.setState({
-                                    ...this.state,
-                                    dispatch: {
-                                        ...dispatch,
-                                        windsInstructor: e.target.value
-                                    }
-                                })
-                            }}
-                        ></input>
+                        <span>{this.props.user.name}</span>
                     </div>
 
                     <div style={this.styles.windContainer.row}>

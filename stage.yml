@@ -9,11 +9,28 @@ services:
       - target: 9001
         published: ${BROKER_PORT}
 
+  winds_database:
+    container_name: winds_database
+    image: postgres
+    environment: 
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: winds
+    restart: on-failure
+    ports:
+      - target: 5432
+        published: ${WINDS_DB_PORT}
+    volumes:
+      - ./postgres/winds:/docker-entrypoint-initdb.d
+      - winds_data/:/var/lib/postgresql/data
+
   # BACKEND
   backend:
     container_name: backend
     build: 
       context: ./backend
+    depends_on:
+      - winds_database
     environment:
       BACKEND_URL: ${BACKEND_URL}
       BIGBASE_URL: ${BIGBASE_URL}
@@ -22,6 +39,9 @@ services:
     ports:
       - target: 8000
         published: ${BACKEND_PORT}
+    #  TODO remove this volume, it was used for logging memcached issues
+    volumes: 
+      - "./logs:/app/logs"
 
   # FRONTENDS
   bigbase:
@@ -40,3 +60,6 @@ services:
     ports:
       - target: 80
         published: ${BIGTOP_PORT}
+
+volumes:
+  winds_data:

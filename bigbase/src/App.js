@@ -9,10 +9,7 @@ import ContextMenu from "./components/ContextMenu";
 import EditModal from "./components/modals/EditModal";
 import "./App.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import { sha256 } from 'js-sha256'
-
-console.log(process.env)
 
 // Set where the application is communicating with
 const URL = process.env.NODE_ENV === "development" ? "http://192.168.1.133:8000" : process.env.REACT_APP_BACKEND_URL
@@ -105,21 +102,14 @@ export default class App extends React.Component {
 
     // Get today's dispatches when page is opened
     componentDidMount() {
-        // THis is fusionauth TODO clean up if not using
-        // // Get the logged in user's info
-        // fetch(`${URL}/user`, {credentials: "include"})
-        //     .then(res => res.json())
-        //     .then(res => this.setState({
-        //         ...this.state,
-        //         user: res
-        //     }))
         // Get today's dispatches
-        this.getDispatches(TODAY)
+        if (sessionStorage.getItem("token")) {
+            this.getDispatches(TODAY)
+        }
     }
     
     render() {
-        const {dispatches, id, editModalIsOpen, editing, user} = this.state
-        console.log(this.state)
+        const {dispatches, id, editModalIsOpen, editing} = this.state
         if (sessionStorage.getItem("token")) {
             return (
                 <div style={{minWidth: "1080px"}}>
@@ -154,8 +144,6 @@ export default class App extends React.Component {
                         overflowY: "scroll"
                     }}>
                         <div>
-                            {/* TODO remove this */}
-                            <p>Logged in as {user.email}</p>
                             <button 
                                 onClick={this.logout}>Logout</button>
                             {dispatches.map(d => {
@@ -175,7 +163,7 @@ export default class App extends React.Component {
             )
         } else {
             return (
-                <div>
+                <div id="login-form">
                     <input 
                         type="text" 
                         name="username"
@@ -201,23 +189,7 @@ export default class App extends React.Component {
                             })
                         }}></input>
                     <button 
-                        onClick={ async () => {
-                            let username = this.state.loginDetails.username
-                            let password = this.state.loginDetails.password
-                            let hashedPassword = sha256(password)
-                            try {
-                                const response = await axios.post(`${URL}/login`, {username: username, password_hash: hashedPassword})
-                                console.log(response.data)
-                                if (response.data.token) {
-                                    window.sessionStorage.setItem("token", response.data.token)
-                                    window.sessionStorage.setItem("email", response.data.email)
-                                    window.sessionStorage.setItem("name", response.data.name)
-                                    window.location.assign(window.location)
-                                }
-                            } catch (error) {
-                                Log.error(error)
-                            }
-                        }}>Login</button>
+                        onClick={this.login}>Login</button>
                 </div>
             )
         }
@@ -231,7 +203,6 @@ export default class App extends React.Component {
     getDispatches = async date => {
         try {
             const response = await axios.get(`${URL}/bydate?date=${date}&token=${sessionStorage.getItem("token")}`)
-            console.log(response)
             if (response.data.error === "session_expired") {
                 // clear the sessionStorage and reload app
                 window.sessionStorage.clear()
@@ -253,7 +224,7 @@ export default class App extends React.Component {
 
     createDispatch = async dispatch => {
         const dispatchPayload = new Dispatch(dispatch)
-        dispatchPayload.windsInstructor = this.state.user.user.name
+        dispatchPayload.windsInstructor = this.state.user.name
         delete dispatchPayload._id
         const arr = [1,2,3,4]
         arr.forEach(i => {
@@ -303,9 +274,25 @@ export default class App extends React.Component {
         }
     }
 
+    login = async () => {
+        let username = this.state.loginDetails.username
+        let password = this.state.loginDetails.password
+        let hashedPassword = sha256(password)
+        try {
+            const response = await axios.post(`${URL}/login`, {username: username, password_hash: hashedPassword})
+            if (response.data.token) {
+                window.sessionStorage.setItem("token", response.data.token)
+                window.sessionStorage.setItem("email", response.data.email)
+                window.sessionStorage.setItem("name", response.data.name)
+                window.location.assign(window.location)
+            }
+        } catch (error) {
+            Log.error(error)
+        }
+    }
+
     logout = async () => {
-        let response = await axios.get(`${URL}/logout`)
-        Log.debug(response.data)
+        await axios.get(`${URL}/logout`)
         sessionStorage.clear()  
         window.location.assign(window.location)
     }
