@@ -3,7 +3,8 @@ from models._rider import Rider
 
 class Dispatch:
     def __init__(self, wind_deg, wind_spd, bt, inst, date, time, comment="", riders={}, _id=None):
-        self.riders = {'1': None, '2': None, '3': None, '4': None} | riders
+        base_riders = {'1': None, '2': None, '3': None, '4': None}
+        self.riders = {**base_riders, **riders}
         self.date = date
         self.time = time
         self._id = _id if _id else None

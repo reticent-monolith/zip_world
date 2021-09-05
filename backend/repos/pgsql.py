@@ -4,7 +4,7 @@ from models._rider import Rider
 import datetime
 
 def dispatches_from(cursor) -> list:
-    return [Dispatch(
+    results = [Dispatch(
             wind_deg=winddegrees,
             wind_spd=windspeed,
             inst=instructor,
@@ -29,6 +29,7 @@ def dispatches_from(cursor) -> list:
             instructor, btradio,
             comment
         ) in cursor.fetchall()]
+    return sorted(results, key=lambda x: x._id) # TODO find why the dispatches started re-ordering when updated
 
 
 columns = "(datetime, weight4, front4, middle4, rear4, added4, speed4, trolley4, weight3, front3, middle3, rear3, added3, speed3, trolley3, weight2, front2, middle2, rear2, added2, speed2, trolley2, weight1, front1, middle1, rear1, added1, speed1, trolley1, windspeed, winddirection, windsinstructor, bigtopinstructor, comment)"
@@ -70,6 +71,8 @@ class PgSQLDispatchRepo:
             with self.conn.cursor() as cursor:
                 cursor.execute("SELECT * FROM data WHERE datetime >= %s AND datetime < %s", (start, end))
                 results = dispatches_from(cursor)
+                for d in results:
+                    print(f"{d._id} {d.time}")
                 cursor.close()
                 return results
 

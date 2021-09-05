@@ -7,64 +7,80 @@ from models.dispatch import Dispatch
 import os
 from dotenv import load_dotenv
 import uuid
-
+import logging
 import asyncio
 import aiomcache
-
+from pprint import pprint
 load_dotenv()
+#----------------------------------------------------------------------------------------------#
+# Constants
 BACKEND_URL = os.environ['BACKEND_URL']
 BIGBASE_URL=os.environ["BIGBASE_URL"]
 WINDS_DB_HOSTNAME = os.environ["WINDS_DB_HOSTNAME"]
 WINDS_DB_PORT = os.environ["WINDS_DB_PORT"]
-
 TOKEN_LIFESPAN = 1800
-
+#----------------------------------------------------------------------------------------------#
+# Quart app config
 app = Quart(__name__)
 app.secret_key = uuid.uuid4().hex
 app = cors(app, allow_origin=BIGBASE_URL, allow_headers="content-type", allow_credentials=True)
-
+#----------------------------------------------------------------------------------------------#
 # Quart-Session config
 app.config['SESSION_TYPE'] = 'memcached'
 Session(app)
 cache = app.session_interface
-
-# DIY session cache
-# cache = aiomcache.Client("127.0.0.1", 11211)
-
-async def refresh_session():
-    print("Refreshing session...")
-    await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
-
+#----------------------------------------------------------------------------------------------#
+# Logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
+handler = logging.StreamHandler()
+fhandler = logging.FileHandler("./logs/app.log")
+log.addHandler(handler)
+log.addHandler(fhandler)
+#----------------------------------------------------------------------------------------------#
+# Database connections
 dispatch_repo = PgSQLDispatchRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
 user_repo = PgSQLUserRepo(host=WINDS_DB_HOSTNAME, port=WINDS_DB_PORT)
-
-# DISPATCH ROUTES
+#----------------------------------------------------------------------------------------------#
+# Helper functions
+async def refresh_session():
+    await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
+    token = await cache.get("token")
+    logging.debug(f"Refreshing token as {token}")
+    return token
+#----------------------------------------------------------------------------------------------#
+# Dispatch routes
 @app.route('/bydate')
 async def by_date():
     """
     Return all dispatches from given date.
     """
-    token = (await request.values).get("token")
-    stored_token = (await cache.get("token"))
-    if stored_token:
-        stored_token = stored_token.decode("utf-8")
-    else:
-        stored_token = ""
+    token = (await request.values).get("token", "")
+    stored_token = (await cache.get("token", "")).decode("utf-8")
     date = (await request.values).get("date")
     try:
         if token == stored_token:
-            await refresh_session()
+            new_token = await refresh_session()
             dispatches = [dispatch.as_dict() for dispatch in dispatch_repo.by_date(date)]
-            response = make_response(jsonify({"token": (await cache.get("token")).decode("utf-8"), "dispatches":dispatches}), 200,)
+            logging.debug(f"Dispatches: {dispatches}")
+            pprint(dispatches)
+            response = make_response(jsonify({
+                "token": new_token.decode("utf-8"), # json can't serialize bytes...
+                "dispatches":dispatches
+            }), 200,)
             return await response
         elif token == "null":
-            print(f"No session")
-            return await make_response(jsonify({"error": "no_session"}), 200)
+            return await make_response(jsonify({
+                "error": "no_session"}), 
+                200
+                )
         else:
-            print(f"Invalid session: {token} != {stored_token}")
-            return await make_response(jsonify({"error": "session_expired"}), 200)
+            return await make_response(jsonify({
+                "error": "session_expired"}), 
+                200
+                )
     except Exception as e:
-        print(e)
+        logging.exception("Exception in /bydate: ")
         return redirect(url_for("logout"))
 
 @app.route('/add', methods=['POST', 'OPTIONS'])
@@ -73,23 +89,28 @@ async def add():
     Add a dispatch to the database.
     """
     token = (await request.values).get("token")
+    stored_token = (await cache.get("token", "")).decode("utf-8")
     if request.method == 'POST':
         try:
-            if token == (await cache.get("token")).decode("utf-8"):
+            if token == stored_token:
                 body = await request.json
                 dispatch = Dispatch.from_dict(body)
                 try:
                     dispatch_repo.add(dispatch)
                 except Exception as e:
-                    print(e)
-                    return await make_response(f"{e} when adding {dispatch} to the database", 501)
+                    return await make_response(
+                        f"{e} when adding {dispatch} to the database", 
+                        501
+                        )
                 response = make_response("", 200)
                 return await response
             else:
-                print(f"Invalid session: {token} != {(await cache.get('token')).decode('utf-8')}")
-                return await make_response(jsonify({"error": "Incorrect session token"}), 200)
+                return await make_response(jsonify({
+                    "error": "Incorrect session token"}), 
+                    200
+                    )
         except Exception as e:
-            print(e)
+            logging.exception("Exception in /add: ")
             return redirect(url_for("logout"))
     elif request.method == 'OPTIONS':
         response = make_response("", 200)
@@ -101,6 +122,7 @@ async def delete():
     Delete a dispatch from the database.
     """
     token = (await request.values).get("token")
+    stored_token = (await cache.get("token", "")).decode("utf-8")
     if request.method == 'POST':
         try:
             if token == (await cache.get("token")).decode("utf-8"):
@@ -108,15 +130,21 @@ async def delete():
                 try:
                     dispatch_repo.delete(id)
                 except Exception as e:
-                    response =  make_response(f"{e} when deleting dispatch with id {id} from the database", 501)
+                    logging.exception("Exception in repo.delete(): ")
+                    response =  make_response(
+                        f"{e} when deleting dispatch with id {id} from the database", 
+                        501
+                        )
                     return await response
                 response = make_response("", 200)
                 return await response
             else:
-                print(f"Invalid session: {token} != {(await cache.get('token')).decode('utf-8')}")
-                return await make_response(jsonify({"error": "Incorrect session token"}), 200)
+                return await make_response(jsonify({
+                    "error": "Incorrect session token"}), 
+                    200
+                    )
         except Exception as e:
-            print(e)
+            logging.exception("Exception in /delete: ")
             return redirect(url_for("logout"))
     elif request.method == 'OPTIONS':
         response = make_response("", 200)
@@ -136,41 +164,36 @@ async def update():
                 try:
                     dispatch_repo.update(dispatch)
                 except Exception as e:
-                    print(e)
-                    response =  make_response(f"{e} when updating dispatch with id {id}", 501)
+                    response =  make_response(
+                        f"{e} when updating dispatch with id {id}", 
+                        501
+                        )
                     return await response
                 response = make_response("", 200)
                 return await response
             else:
-                print(f"Invalid session: {token} != {(await cache.get('token')).decode('utf-8')}")
-                return await make_response(jsonify({"error": "Incorrect session token"}), 200)
+                return await make_response(jsonify({
+                    "error": "Incorrect session token"}), 
+                    200
+                    )
         except Exception as e:
-            print(e)
+            logging.exception("Exception in /update: ")
             return redirect(url_for("logout"))
     elif request.method == 'OPTIONS':
         response = make_response("", 200)
         return await response
-
+#----------------------------------------------------------------------------------------------#
+# Auth routes
 @app.route("/login", methods=['POST', 'OPTIONS'])
 async def login():
     if request.method == "POST":
-        log = open("./logs/log", "w")
         sent_details = await request.json
-
-        log.write(f"sent_details = {sent_details}\n") # TODO remove this and other log statements
-
         try:
             user = user_repo.get_user(sent_details["username"])
-
-            log.write(f"user = {user}\n")
-
             if sent_details["password_hash"] == user["password_hash"]:
-
-                log.write("Hashes match\n")
-
-                print(f"Logging in: {user['first_name']} ({user['email']})")
-                await cache.set("token", uuid.uuid4().hex, expiry=TOKEN_LIFESPAN)
-                log.close()
+                new_token = uuid.uuid4().hex
+                await cache.set("token", new_token, expiry=TOKEN_LIFESPAN)
+                logging.debug(f"Token initially set during login as {new_token}")
                 return await make_response(jsonify({
                     "name": user["first_name"],
                     "email": user["email"],
@@ -179,9 +202,7 @@ async def login():
             else:
                 raise Exception("Bad credentials")
         except Exception as e:    
-            print(e)
-            log.write(f"EXCEPTION: {e}")
-            log.close()
+            logging.exception("Exception in /login: ")
             return await make_response(jsonify({
                 "error": "Incorrect username or password"
             }), 200)
@@ -190,11 +211,10 @@ async def login():
 
 @app.route("/logout")
 async def logout():
-    print("Logging out")
     try:
         await cache.delete("token")
     except Exception as e:
-        print("Tried deleting token from cache, no token present")
+        logging.exception("Exception in /logout: ")
     return await make_response(jsonify({
         "loggedOut": True
     }), 200)
